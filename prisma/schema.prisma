@@ -1,9 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../app/generated/prisma"
 }
 
 datasource db {
@@ -11,9 +8,41 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model menu {
+model Menu {
+  id          Int          @id @default(autoincrement())
+  name        String        
+  price       Int
+  category    String?       
+  description String?
+  isActive    Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  orderItems  OrderItem[]   
+}
+
+model Orders {
+  id         Int          @id @default(autoincrement())
+  status     OrderStatus   @default(IN_PROGRESS)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  items      OrderItem[]  
+}
+
+model OrderItem {
   id        Int      @id @default(autoincrement())
-  items     Json
-  total     Int
-  createdAt DateTime @default(now())
+  quantity  Int
+  price     Int     
+  
+  orderId   Int
+  order     Orders    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  menuId    Int
+  menu      Menu     @relation(fields: [menuId], references: [id], onDelete: Cascade)
+}
+
+enum OrderStatus {
+  IN_PROGRESS
+  COMPLETED
 }
