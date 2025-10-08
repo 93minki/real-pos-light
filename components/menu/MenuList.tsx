@@ -21,7 +21,7 @@ const MenuList = ({ clickMenu }: MenuListProps) => {
   }, []);
 
   return (
-    <div className="w-full flex flex-wrap gap-4 ">
+    <div className="w-full grid grid-cols-4 gap-4 border rounded-lg p-4 overflow-y-auto">
       {menus
         .filter((m) => m.isActive)
         .map((menu) => (

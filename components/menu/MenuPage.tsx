@@ -60,7 +60,7 @@ export default function MenuPage() {
   };
 
   return (
-    <div className="w-full flex gap-2">
+    <div className="w-full h-screen flex gap-2 px-4 pt-16 pb-2">
       <MenuList clickMenu={clickMenu} />
       <SelectedMenuList
         selectedMenuList={selectedMenuList}

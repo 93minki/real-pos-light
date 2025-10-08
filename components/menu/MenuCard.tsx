@@ -9,11 +9,11 @@ interface MenuCardProps {
 const MenuCard = ({ name, price, onClickMenu }: MenuCardProps) => {
   return (
     <div
-      className="flex flex-col border rounded-lg p-4 max-w-1/5"
+      className="h-1/6  border rounded flex flex-col justify-center items-center cursor-pointer"
       onClick={onClickMenu}
     >
-      <span>{name}</span>
-      <span>{price}</span>
+      <span className="text-4xl">{name}</span>
+      <span className="text-xl">{price}</span>
     </div>
   );
 };

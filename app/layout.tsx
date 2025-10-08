@@ -23,10 +23,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased p-16`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div className="fixed top-0 left-0 w-full h-16 p-4">Header</div>
         {children}
       </body>
     </html>
