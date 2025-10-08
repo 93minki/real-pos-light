@@ -11,7 +11,6 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  console.log("req", req);
   try {
     const body = await req.json();
     const { name, price, category, description, isActive } = body;
