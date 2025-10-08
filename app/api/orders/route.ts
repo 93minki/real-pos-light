@@ -8,13 +8,13 @@ export const dynamic = "force-dynamic";
 const prisma = new PrismaClient();
 
 export async function GET() {
-  const orders = await prisma.order.findMany({ orderBy: { id: "desc" } });
+  const orders = await prisma.orders.findMany({ orderBy: { id: "desc" } });
   return NextResponse.json(orders);
 }
 
 export async function POST(req: Request) {
   const body = await req.json();
-  const created = await prisma.order.create({
+  const created = await prisma.orders.create({
     data: { items: body.items, total: body.total },
   });
 
