@@ -25,7 +25,6 @@ export default function OrderPage() {
   const fetchOrders = async () => {
     const res = await fetch("/api/orders");
     const data = await res.json();
-    console.log("data", data);
     setOrders(data);
   };
 

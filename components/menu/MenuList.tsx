@@ -1,36 +1,26 @@
 "use client";
 
-import { Menu } from "@/lib/types/Menu";
-import { useEffect, useState } from "react";
+import { useEditModeStore } from "@/store/useEditModeStore";
+import { useMenuStore } from "@/store/useMenuStore";
+import { useEffect } from "react";
 import MenuCard from "./MenuCard";
 
-interface MenuListProps {
-  clickMenu: (menu: Menu) => void;
-}
-
-const MenuList = ({ clickMenu }: MenuListProps) => {
-  const [menus, setMenus] = useState<Menu[]>([]);
+const MenuList = () => {
+  const menus = useMenuStore((state) => state.menus);
+  const fetchMenus = useMenuStore((state) => state.fetchMenus);
+  const isEditMode = useEditModeStore((state) => state.isEditMode);
 
   useEffect(() => {
-    const fetchMenus = async () => {
-      const res = await fetch("/api/menu");
-      const data = await res.json();
-      setMenus(data);
-    };
     fetchMenus();
-  }, []);
+  }, [fetchMenus]);
+
 
   return (
     <div className="w-full grid grid-cols-4 gap-4 border rounded-lg p-4 overflow-y-auto">
       {menus
-        .filter((m) => m.isActive)
+        .filter((m) => (isEditMode ? true : m.isActive))
         .map((menu) => (
-          <MenuCard
-            key={menu.id}
-            name={menu.name}
-            price={menu.price}
-            onClickMenu={() => clickMenu(menu)}
-          />
+          <MenuCard key={menu.id} menu={menu} />
         ))}
     </div>
   );
