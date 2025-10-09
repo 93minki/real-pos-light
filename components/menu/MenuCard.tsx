@@ -16,20 +16,47 @@ const MenuCard = ({ menu }: MenuCardProps) => {
 
   return (
     <div
-      className={`h-1/6  border rounded flex flex-col justify-center items-center cursor-pointer ${
-        menu.isActive ? "bg-green-500" : "bg-red-500"
+      className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 cursor-pointer overflow-hidden group h-full flex flex-col ${
+        menu.isActive
+          ? "border-green-200 hover:border-green-300"
+          : "border-red-200 hover:border-red-300 opacity-60"
       }`}
       onClick={() => {
         if (!isEditMode) selectMenu(menu);
       }}
     >
-      <span className="text-4xl">{menu.name}</span>
-      <span className="text-xl">{menu.price}</span>
+      {/* 메뉴 정보 */}
+      <div className="p-6 text-center flex-1 flex flex-col justify-center">
+        <h3 className="text-2xl font-bold text-gray-900 mb-2 line-clamp-2">
+          {menu.name}
+        </h3>
+        <div className="text-3xl font-bold text-blue-600">
+          {menu.price.toLocaleString()}원
+        </div>
+        {menu.category && (
+          <div className="text-sm text-gray-500 mt-2">{menu.category}</div>
+        )}
+      </div>
+
+      {/* 활성 상태 표시 */}
+      <div
+        className={`absolute top-3 right-3 w-3 h-3 rounded-full ${
+          menu.isActive ? "bg-green-500" : "bg-red-500"
+        }`}
+      />
+
+      {/* EditMode 버튼 */}
       {isEditMode && (
-        <div onClick={(e) => e.stopPropagation()}>
+        <div
+          className="absolute top-3 left-3"
+          onClick={(e) => e.stopPropagation()}
+        >
           <EditMenu menu={menu} />
         </div>
       )}
+
+      {/* 호버 효과 */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </div>
   );
 };

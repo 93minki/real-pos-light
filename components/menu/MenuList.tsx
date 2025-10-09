@@ -14,13 +14,17 @@ const MenuList = () => {
     fetchMenus();
   }, [fetchMenus]);
 
-
   return (
-    <div className="w-full grid grid-cols-4 gap-4 border rounded-lg p-4 overflow-y-auto">
+    <div
+      className="w-full grid grid-cols-4 gap-4 border rounded-lg p-4 overflow-y-auto"
+      style={{ gridAutoRows: "min-content" }}
+    >
       {menus
         .filter((m) => (isEditMode ? true : m.isActive))
         .map((menu) => (
-          <MenuCard key={menu.id} menu={menu} />
+          <div key={menu.id} className="h-48">
+            <MenuCard menu={menu} />
+          </div>
         ))}
     </div>
   );

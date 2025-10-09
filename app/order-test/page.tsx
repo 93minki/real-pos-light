@@ -15,7 +15,7 @@ interface Order {
   items: OrderItem[];
 }
 
-export default function OrderPage() {
+export default function OrderPageTest() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editQuantities, setEditQuantities] = useState<Record<number, number>>(
