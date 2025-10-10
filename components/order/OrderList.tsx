@@ -17,6 +17,29 @@ const OrderList = ({ statusFilter, layout = "list" }: OrderListProps) => {
     fetchOrders();
   }, [fetchOrders]);
 
+  useEffect(() => {
+    const eventSource = new EventSource("/api/events");
+
+    eventSource.onmessage = (event) => {
+      console.log("SSE 이벤트 수신:", event.data);
+      if (
+        event.data === "order-created" ||
+        event.data === "order-updated" ||
+        event.data === "order-deleted"
+      ) {
+        fetchOrders(); // 주문 목록 새로고침
+      }
+    };
+
+    eventSource.onerror = (error) => {
+      console.error("SSE 연결 오류:", error);
+    };
+
+    return () => {
+      eventSource.close();
+    };
+  }, [fetchOrders]);
+
   const filteredOrders = statusFilter
     ? orders.filter((order) => statusFilter.includes(order.status))
     : orders;
