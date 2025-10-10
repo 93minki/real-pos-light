@@ -1,6 +1,7 @@
 "use client";
 
 import { Order } from "@/lib/types/Order";
+import { useOrderStore } from "@/store/useOrderStore";
 
 interface OrderCardProps {
   order: Order;
@@ -8,6 +9,10 @@ interface OrderCardProps {
 }
 
 const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
+  const updateOrder = useOrderStore((state) => state.updateOrder);
+  const completeOrder = useOrderStore((state) => state.completeOrder);
+  const deleteOrder = useOrderStore((state) => state.deleteOrder);
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "IN_PROGRESS":
@@ -76,16 +81,8 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <div
-                className={`px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(
-                  order.status
-                )}`}
-              >
-                <span className="mr-1">{getStatusIcon(order.status)}</span>
-                {getStatusText(order.status)}
-              </div>
               {/* 수정 아이콘 */}
-              <button className="w-5 h-5 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full flex items-center justify-center text-xs transition-colors duration-200">
+              <button className="w-6 h-6 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full flex items-center justify-center text-xs transition-colors duration-200">
                 ✏️
               </button>
             </div>
@@ -129,9 +126,18 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
         </div>
 
         {/* 액션 버튼 (고정) */}
-        <div className="p-3 bg-white border-t border-gray-100">
+        <div className="p-3 bg-white border-t border-gray-100 flex gap-2">
+          <button
+            onClick={() => deleteOrder(order.id)}
+            className="flex-1 bg-red-300 hover:bg-red-400 text-white font-medium rounded-lg transition-colors duration-200 text-sm"
+          >
+            취소
+          </button>
           {order.status === "IN_PROGRESS" && (
-            <button className="w-full px-3 py-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition-colors duration-200 text-sm">
+            <button
+              onClick={() => completeOrder(order.id)}
+              className="flex-2 px-3 py-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition-colors duration-200 text-sm"
+            >
               완료
             </button>
           )}

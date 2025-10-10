@@ -89,3 +89,34 @@ export async function PATCH(
     return NextResponse.json({ error: "주문 수정 실패" }, { status: 500 });
   }
 }
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const resolvedParams = await params;
+    const id = Number(resolvedParams.id);
+
+    const existingOrder = await prisma.orders.findUnique({
+      where: { id },
+    });
+
+    if (!existingOrder) {
+      return NextResponse.json(
+        { error: "주문을 찾을 수 없습니다." },
+        { status: 404 }
+      );
+    }
+
+    await prisma.orders.delete({
+      where: { id },
+    });
+
+    broadcast("order-deleted");
+    return NextResponse.json({ message: "주문이 성공적으로 삭제되었습니다." });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ error: "주문 삭제 실패" }, { status: 500 });
+  }
+}

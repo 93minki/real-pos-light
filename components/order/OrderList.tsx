@@ -1,7 +1,7 @@
 "use client";
 
-import { Order } from "@/lib/types/Order";
-import { useEffect, useState } from "react";
+import { useOrderStore } from "@/store/useOrderStore";
+import { useEffect } from "react";
 import OrderCard from "./OrderCard";
 
 interface OrderListProps {
@@ -10,37 +10,12 @@ interface OrderListProps {
 }
 
 const OrderList = ({ statusFilter, layout = "list" }: OrderListProps) => {
-  const [orders, setOrders] = useState<Order[]>([]);
-
-  const fetchOrders = async () => {
-    try {
-      console.log("주문 목록 조회 시작...");
-      const res = await fetch("/api/orders");
-      console.log("응답 상태:", res.status);
-
-      if (!res.ok) {
-        console.error("API 에러:", res.status, res.statusText);
-        return;
-      }
-
-      const data = await res.json();
-      console.log("받은 데이터:", data);
-      setOrders(data);
-    } catch (error) {
-      console.error("fetch 에러:", error);
-    }
-  };
+  const orders = useOrderStore((state) => state.orders);
+  const fetchOrders = useOrderStore((state) => state.fetchOrders);
 
   useEffect(() => {
     fetchOrders();
-    const eventSource = new EventSource("/api/events");
-    eventSource.onmessage = (event) => {
-      console.log("SSE 업데이트 감지:", event.data);
-      fetchOrders();
-    };
-
-    return () => eventSource.close();
-  }, []);
+  }, [fetchOrders]);
 
   const filteredOrders = statusFilter
     ? orders.filter((order) => statusFilter.includes(order.status))
