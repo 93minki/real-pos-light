@@ -1,4 +1,5 @@
 import { useSelectedMenuStore } from "@/store/useSelectedMenuStore";
+import PaymentDialog from "./PaymentDialog";
 
 const SelectedMenuList = () => {
   const selectedMenuList = useSelectedMenuStore(
@@ -27,10 +28,8 @@ const SelectedMenuList = () => {
     });
 
     if (res.ok) {
-      alert("주문 완료");
       resetSelectedMenuList();
     } else {
-      alert("주문 실패");
     }
   };
 
@@ -113,17 +112,12 @@ const SelectedMenuList = () => {
             {totalPrice.toLocaleString()}원
           </span>
         </div>
-        <button
-          className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-200 ${
-            selectedMenuList.size === 0
-              ? "bg-gray-200 text-gray-500 cursor-not-allowed"
-              : "bg-blue-500 hover:bg-blue-600 text-white shadow-lg hover:shadow-xl"
-          }`}
-          onClick={handleOrder}
+
+        <PaymentDialog
+          totalPrice={totalPrice}
           disabled={selectedMenuList.size === 0}
-        >
-          🛒 주문하기
-        </button>
+          handleOrder={handleOrder}
+        />
       </div>
     </div>
   );

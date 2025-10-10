@@ -46,8 +46,11 @@ const MenuCard = ({ menu, menuClickHandler }: MenuCardProps) => {
       {/* EditMode 버튼 */}
       {isEditMode && (
         <div
-          className="absolute top-3 left-3"
-          onClick={(e) => e.stopPropagation()}
+          className="absolute top-3 left-3 z-10"
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          }}
         >
           <EditMenu menu={menu} />
         </div>

@@ -23,7 +23,6 @@ const EditMenu = ({ menu }: EditMenuProps) => {
   const [price, setPrice] = useState(menu.price);
   const [category, setCategory] = useState(menu.category);
   const [isActive, setIsActive] = useState(menu.isActive);
-
   const updateMenu = useMenuStore((state) => state.updateMenu);
 
   return (
