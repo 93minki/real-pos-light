@@ -8,7 +8,8 @@ interface OrderStoreStates {
 }
 
 interface OrderStoreActions {
-  fetchOrders: () => void;
+  fetchOrders: (date?: string | Date) => void;
+  fetchOrdersByMonth: (month: string) => void;
   updateOrder: (
     orderId: number,
     items: Array<{ menuId: number; quantity: number; price: number }>
@@ -24,10 +25,18 @@ export const useOrderStore = create<OrderStoreType>((set) => ({
   loading: false,
   error: null,
 
-  fetchOrders: async () => {
+  fetchOrders: async (date?: string | Date) => {
     set({ loading: true, error: null });
     try {
-      const res = await fetch("/api/orders");
+      let url = "/api/orders";
+      if (date) {
+        // Date 객체인 경우 문자열로 변환
+        const dateString =
+          date instanceof Date ? date.toISOString().split("T")[0] : date;
+        url += `?date=${dateString}`;
+      }
+
+      const res = await fetch(url);
       if (!res.ok) {
         throw new Error(`HTTP Error, status: ${res.status}`);
       }
@@ -35,6 +44,23 @@ export const useOrderStore = create<OrderStoreType>((set) => ({
       set({ orders: data, loading: false });
     } catch (error) {
       console.error("주문 목록 조회 실패", error);
+      set({
+        error: error instanceof Error ? error.message : "알 수 없는 오류",
+        loading: false,
+      });
+    }
+  },
+  fetchOrdersByMonth: async (month: string) => {
+    set({ loading: true, error: null });
+    try {
+      const res = await fetch(`/api/orders?month=${month}`);
+      if (!res.ok) {
+        throw new Error(`HTTP Error, status: ${res.status}`);
+      }
+      const data = await res.json();
+      set({ orders: data, loading: false });
+    } catch (error) {
+      console.error("월별 주문 목록 조회 실패", error);
       set({
         error: error instanceof Error ? error.message : "알 수 없는 오류",
         loading: false,

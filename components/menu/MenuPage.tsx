@@ -9,6 +9,7 @@ import SelectedMenuList from "./SelectedMenuList";
 export default function MenuPage() {
   const selectMenu = useSelectedMenuStore((state) => state.selectMenu);
   const isEditMode = useEditModeStore((state) => state.isEditMode);
+
   const menuClickHandler = (menu: Menu) => {
     if (!isEditMode) selectMenu(menu);
   };

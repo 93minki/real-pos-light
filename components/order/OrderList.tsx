@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import OrderCard from "./OrderCard";
 
 interface OrderListProps {
-  statusFilter?: string[];
+  statusFilter?: string;
   layout?: "list" | "grid";
 }
 
@@ -18,7 +18,12 @@ const OrderList = ({ statusFilter, layout = "list" }: OrderListProps) => {
   }, [fetchOrders]);
 
   useEffect(() => {
+    console.log("SSE 연결 시작");
     const eventSource = new EventSource("/api/events");
+
+    eventSource.onopen = () => {
+      console.log("SSE 연결 성공");
+    };
 
     eventSource.onmessage = (event) => {
       console.log("SSE 이벤트 수신:", event.data);
@@ -27,6 +32,7 @@ const OrderList = ({ statusFilter, layout = "list" }: OrderListProps) => {
         event.data === "order-updated" ||
         event.data === "order-deleted"
       ) {
+        console.log("주문 목록 새로고침 시작");
         fetchOrders(); // 주문 목록 새로고침
       }
     };
@@ -36,20 +42,21 @@ const OrderList = ({ statusFilter, layout = "list" }: OrderListProps) => {
     };
 
     return () => {
+      console.log("SSE 연결 종료");
       eventSource.close();
     };
   }, [fetchOrders]);
 
   const filteredOrders = statusFilter
-    ? statusFilter.length > 1
+    ? statusFilter === "COMPLETED"
       ? orders
-          .filter((order) => statusFilter.includes(order.status))
+          .filter((order) => order.status === statusFilter)
           .sort(
             (a, b) =>
               new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
           )
       : orders
-          .filter((order) => statusFilter.includes(order.status))
+          .filter((order) => order.status === statusFilter)
           .sort(
             (a, b) =>
               new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()

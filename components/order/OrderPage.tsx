@@ -18,7 +18,7 @@ const OrderPage = () => {
             </p>
           </div>
           <div className="h-full overflow-y-auto p-4">
-            <OrderList statusFilter={["IN_PROGRESS"]} layout="grid" />
+            <OrderList statusFilter={"IN_PROGRESS"} layout="grid" />
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@ const OrderPage = () => {
             <p className="text-sm text-gray-600 mt-1">최근 완료된 주문들</p>
           </div>
           <div className="h-full overflow-y-auto">
-            <OrderList statusFilter={["COMPLETED", "CANCELLED"]} />
+            <OrderList statusFilter={"COMPLETED"} />
           </div>
         </div>
       </div>
