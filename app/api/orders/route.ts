@@ -7,9 +7,65 @@ export const dynamic = "force-dynamic";
 
 const prisma = new PrismaClient();
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const date = searchParams.get("date");
+    const month = searchParams.get("month");
+
+    let whereClause = {};
+
+    if (date) {
+      // 특정 날짜의 주문 조회 (00:00 ~ 23:59)
+      const startDate = new Date(date);
+      startDate.setHours(0, 0, 0, 0);
+      const endDate = new Date(date);
+      endDate.setHours(23, 59, 59, 999);
+
+      whereClause = {
+        createdAt: {
+          gte: startDate,
+          lte: endDate,
+        },
+      };
+    } else if (month) {
+      // 특정 월의 주문 조회
+      const [year, monthNum] = month.split("-");
+      const startDate = new Date(parseInt(year), parseInt(monthNum) - 1, 1);
+      const endDate = new Date(
+        parseInt(year),
+        parseInt(monthNum),
+        0,
+        23,
+        59,
+        59,
+        999
+      );
+
+      whereClause = {
+        createdAt: {
+          gte: startDate,
+          lte: endDate,
+        },
+      };
+    } else {
+      // 기본값: 오늘 날짜의 주문 조회
+      const today = new Date();
+      const startDate = new Date(today);
+      startDate.setHours(0, 0, 0, 0);
+      const endDate = new Date(today);
+      endDate.setHours(23, 59, 59, 999);
+
+      whereClause = {
+        createdAt: {
+          gte: startDate,
+          lte: endDate,
+        },
+      };
+    }
+
     const orders = await prisma.orders.findMany({
+      where: whereClause,
       orderBy: { id: "desc" },
       include: {
         items: {
@@ -38,6 +94,8 @@ export async function POST(req: Request) {
       );
     }
 
+    console.log(items);
+
     const totalAmount = items.reduce(
       (acc, item) => acc + item.price * item.quantity,
       0
@@ -58,7 +116,6 @@ export async function POST(req: Request) {
         items: true,
       },
     });
-
     broadcast("order-created");
     return NextResponse.json({ ...newOrder, totalAmount }, { status: 201 });
   } catch (err) {
