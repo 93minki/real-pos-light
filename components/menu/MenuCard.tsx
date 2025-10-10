@@ -2,17 +2,15 @@
 
 import { Menu } from "@/lib/types/Menu";
 import { useEditModeStore } from "@/store/useEditModeStore";
-import { useSelectedMenuStore } from "@/store/useSelectedMenuStore";
 import EditMenu from "./EditMenu";
 
 interface MenuCardProps {
   menu: Menu;
+  menuClickHandler: (menu: Menu) => void;
 }
 
-const MenuCard = ({ menu }: MenuCardProps) => {
+const MenuCard = ({ menu, menuClickHandler }: MenuCardProps) => {
   const isEditMode = useEditModeStore((state) => state.isEditMode);
-
-  const selectMenu = useSelectedMenuStore((state) => state.selectMenu);
 
   return (
     <div
@@ -22,7 +20,7 @@ const MenuCard = ({ menu }: MenuCardProps) => {
           : "border-red-200 hover:border-red-300 opacity-60"
       }`}
       onClick={() => {
-        if (!isEditMode) selectMenu(menu);
+        menuClickHandler(menu);
       }}
     >
       {/* 메뉴 정보 */}

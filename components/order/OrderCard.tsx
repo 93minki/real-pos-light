@@ -2,6 +2,7 @@
 
 import { Order } from "@/lib/types/Order";
 import { useOrderStore } from "@/store/useOrderStore";
+import EditOrder from "./EditOrder";
 
 interface OrderCardProps {
   order: Order;
@@ -12,6 +13,8 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
   const updateOrder = useOrderStore((state) => state.updateOrder);
   const completeOrder = useOrderStore((state) => state.completeOrder);
   const deleteOrder = useOrderStore((state) => state.deleteOrder);
+
+  
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -82,9 +85,7 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
             </div>
             <div className="flex items-center gap-2">
               {/* 수정 아이콘 */}
-              <button className="w-6 h-6 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full flex items-center justify-center text-xs transition-colors duration-200">
-                ✏️
-              </button>
+              <EditOrder orderId={order.id} />
             </div>
           </div>
         </div>

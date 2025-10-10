@@ -4,6 +4,33 @@ import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
+export async function GET(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  const resolvedParams = await params;
+  const id = Number(resolvedParams.id);
+
+  try {
+    const order = await prisma.orders.findUnique({
+      where: { id },
+      include: { items: { include: { menu: true } } },
+    });
+
+    if (!order) {
+      return NextResponse.json(
+        { error: "주문을 찾을 수 없습니다." },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(order);
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ error: "주문 조회 실패" }, { status: 500 });
+  }
+}
+
 export async function PATCH(
   req: Request,
   { params }: { params: { id: string } }
