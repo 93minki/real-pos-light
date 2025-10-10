@@ -41,7 +41,19 @@ const OrderList = ({ statusFilter, layout = "list" }: OrderListProps) => {
   }, [fetchOrders]);
 
   const filteredOrders = statusFilter
-    ? orders.filter((order) => statusFilter.includes(order.status))
+    ? statusFilter.length > 1
+      ? orders
+          .filter((order) => statusFilter.includes(order.status))
+          .sort(
+            (a, b) =>
+              new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+          )
+      : orders
+          .filter((order) => statusFilter.includes(order.status))
+          .sort(
+            (a, b) =>
+              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          )
     : orders;
 
   return (

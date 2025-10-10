@@ -10,11 +10,8 @@ interface OrderCardProps {
 }
 
 const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
-  const updateOrder = useOrderStore((state) => state.updateOrder);
   const completeOrder = useOrderStore((state) => state.completeOrder);
   const deleteOrder = useOrderStore((state) => state.deleteOrder);
-
-  
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -85,7 +82,7 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
             </div>
             <div className="flex items-center gap-2">
               {/* 수정 아이콘 */}
-              <EditOrder orderId={order.id} />
+              <EditOrder order={order} />
             </div>
           </div>
         </div>

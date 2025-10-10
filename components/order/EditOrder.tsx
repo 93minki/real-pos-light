@@ -1,7 +1,6 @@
 import { Menu } from "@/lib/types/Menu";
 import { Order } from "@/lib/types/Order";
 import { useOrderStore } from "@/store/useOrderStore";
-import { useEffect, useState } from "react";
 import MenuList from "../menu/MenuList";
 import {
   Dialog,
@@ -13,38 +12,21 @@ import {
 } from "../ui/dialog";
 
 interface EditOrderProps {
-  orderId: number;
+  order: Order;
 }
 
-const EditOrder = ({ orderId }: EditOrderProps) => {
-  const [order, setOrder] = useState<Order | null>(null);
+const EditOrder = ({ order }: EditOrderProps) => {
   const updateOrder = useOrderStore((state) => state.updateOrder);
-
-  useEffect(() => {
-    const fetchOrder = async () => {
-      const res = await fetch(`/api/orders/${orderId}`);
-      const data = await res.json();
-      setOrder(data);
-    };
-    fetchOrder();
-  }, [orderId]);
 
   const updateOrderItems = async (newItems: Order["items"]) => {
     const success = await updateOrder(
-      orderId,
+      order.id,
       newItems.map((item) => ({
         menuId: item.menu.id,
         quantity: item.quantity,
         price: item.price,
       }))
     );
-
-    if (success) {
-      // 성공 시 주문 정보를 다시 가져와서 최신 상태로 업데이트
-      const res = await fetch(`/api/orders/${orderId}`);
-      const updatedOrder = await res.json();
-      setOrder(updatedOrder);
-    }
   };
 
   const menuClickHandler = async (menu: Menu) => {
