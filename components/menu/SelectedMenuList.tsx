@@ -1,4 +1,5 @@
 import { useSelectedMenuStore } from "@/store/useSelectedMenuStore";
+import { toast } from "sonner";
 import PaymentDialog from "./PaymentDialog";
 
 const SelectedMenuList = () => {
@@ -29,7 +30,11 @@ const SelectedMenuList = () => {
 
     if (res.ok) {
       resetSelectedMenuList();
+      toast.success("주문 성공");
     } else {
+      toast.error("주문 실패", {
+        description: res.status,
+      });
     }
   };
 
