@@ -28,10 +28,12 @@ const ChartContainer = React.forwardRef<
       {...props}
     >
       <RechartsPrimitive.ResponsiveContainer>
-        {React.cloneElement(children as React.ReactElement, {
-          id: chartId,
-          ...config,
-        })}
+        {React.cloneElement(
+          children as React.ReactElement,
+          {
+            ...config,
+          } as Record<string, unknown>
+        )}
       </RechartsPrimitive.ResponsiveContainer>
     </div>
   );
@@ -49,7 +51,6 @@ const ChartTooltipContent = React.forwardRef<
       hideIndicator?: boolean;
       indicator?: "line" | "dot" | "dashed";
       nameKey?: string;
-      labelKey?: string;
     }
 >(
   (
@@ -66,7 +67,6 @@ const ChartTooltipContent = React.forwardRef<
       formatter,
       color,
       nameKey,
-      labelKey,
     },
     ref
   ) => {
@@ -76,22 +76,22 @@ const ChartTooltipContent = React.forwardRef<
       }
 
       const [item] = payload;
-      const key = `${labelKey || item.dataKey || item.name || "value"}`;
-      const value =
-        item.value && item.dataKey ? item.payload[item.dataKey] : item.value;
+      // const key = `${labelKey || item.dataKey || item.name || "value"}`;
+      // const value =
+      //   item.value && item.dataKey ? item.payload[item.dataKey] : item.value;
 
       if (labelFormatter && typeof label === "string") {
         return labelFormatter(label, [item]);
       }
 
       return label;
-    }, [label, labelFormatter, hideLabel, payload, labelKey]);
+    }, [label, labelFormatter, hideLabel, payload]);
 
     if (!active || !payload?.length) {
       return null;
     }
 
-    const [item] = payload;
+    // const [item] = payload;
 
     return (
       <div
@@ -116,7 +116,13 @@ const ChartTooltipContent = React.forwardRef<
               )}
             >
               {formatter && item?.dataKey && item?.value !== undefined ? (
-                formatter(item.value, item.name, item, index, item.payload)
+                formatter(
+                  item.value,
+                  item.name || "",
+                  item,
+                  index,
+                  item.payload
+                )
               ) : (
                 <div className="flex flex-1 items-center gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:flex-shrink-0 [&>svg]:text-muted-foreground">
                   {!hideIndicator && (
@@ -141,7 +147,13 @@ const ChartTooltipContent = React.forwardRef<
                   <div className="flex flex-1 justify-between leading-none">
                     <div className="grid gap-1.5">
                       <div className="text-muted-foreground">
-                        {nameKey ? item.payload[nameKey] : item.name}
+                        {nameKey
+                          ? String(
+                              (item.payload as Record<string, unknown>)[
+                                nameKey
+                              ] || ""
+                            )
+                          : item.name}
                       </div>
                       {item.dataKey && (
                         <div className="font-mono font-medium tabular-nums text-foreground">
@@ -213,7 +225,11 @@ const ChartLegendContent = React.forwardRef<
               />
             )}
             <div className="text-muted-foreground">
-              {nameKey ? item.payload?.[nameKey] : item.value}
+              {nameKey
+                ? String(
+                    (item.payload as Record<string, unknown>)?.[nameKey] || ""
+                  )
+                : item.value}
             </div>
           </div>
         ))}
