@@ -2,14 +2,14 @@ import { Order } from "@/lib/types/Order";
 import { create } from "zustand";
 
 interface OrderStoreStates {
-  orders: Order[];
+  todayOrders: Order[];
+  monthlyOrders: Order[];
   loading: boolean;
   error: string | null;
 }
 
 interface OrderStoreActions {
-  fetchOrders: (date?: string | Date) => void;
-  fetchOrdersByMonth: (month: string) => void;
+  fetchTodayOrders: () => void;
   updateOrder: (
     orderId: number,
     items: Array<{ menuId: number; quantity: number; price: number }>
@@ -21,27 +21,20 @@ interface OrderStoreActions {
 type OrderStoreType = OrderStoreStates & OrderStoreActions;
 
 export const useOrderStore = create<OrderStoreType>((set) => ({
-  orders: [],
+  todayOrders: [],
+  monthlyOrders: [],
   loading: false,
   error: null,
 
-  fetchOrders: async (date?: string | Date) => {
+  fetchTodayOrders: async () => {
     set({ loading: true, error: null });
     try {
-      let url = "/api/orders";
-      if (date) {
-        // Date 객체인 경우 문자열로 변환
-        const dateString =
-          date instanceof Date ? date.toISOString().split("T")[0] : date;
-        url += `?date=${dateString}`;
-      }
-
-      const res = await fetch(url);
+      const res = await fetch("/api/orders");
       if (!res.ok) {
         throw new Error(`HTTP Error, status: ${res.status}`);
       }
       const data = await res.json();
-      set({ orders: data, loading: false });
+      set({ todayOrders: data, loading: false });
     } catch (error) {
       console.error("주문 목록 조회 실패", error);
       set({
@@ -50,23 +43,7 @@ export const useOrderStore = create<OrderStoreType>((set) => ({
       });
     }
   },
-  fetchOrdersByMonth: async (month: string) => {
-    set({ loading: true, error: null });
-    try {
-      const res = await fetch(`/api/orders?month=${month}`);
-      if (!res.ok) {
-        throw new Error(`HTTP Error, status: ${res.status}`);
-      }
-      const data = await res.json();
-      set({ orders: data, loading: false });
-    } catch (error) {
-      console.error("월별 주문 목록 조회 실패", error);
-      set({
-        error: error instanceof Error ? error.message : "알 수 없는 오류",
-        loading: false,
-      });
-    }
-  },
+
   updateOrder: async (
     orderId: number,
     items: Array<{ menuId: number; quantity: number; price: number }>
@@ -83,7 +60,7 @@ export const useOrderStore = create<OrderStoreType>((set) => ({
         throw new Error(`HTTP Error, status: ${res.status}`);
       }
 
-      useOrderStore.getState().fetchOrders();
+      useOrderStore.getState().fetchTodayOrders();
       return true;
     } catch (error) {
       console.error("주문 수정 실패", error);
@@ -106,7 +83,7 @@ export const useOrderStore = create<OrderStoreType>((set) => ({
       if (!res.ok) {
         throw new Error(`HTTP Error, status: ${res.status}`);
       }
-      useOrderStore.getState().fetchOrders();
+      useOrderStore.getState().fetchTodayOrders();
       return true;
     } catch (error) {
       console.error("주문 완료 실패", error);
@@ -129,7 +106,7 @@ export const useOrderStore = create<OrderStoreType>((set) => ({
       if (!res.ok) {
         throw new Error(`HTTP Error, status: ${res.status}`);
       }
-      useOrderStore.getState().fetchOrders();
+      useOrderStore.getState().fetchTodayOrders();
       return true;
     } catch (error) {
       set({

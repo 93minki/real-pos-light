@@ -5,6 +5,7 @@ import { useSSEConnection } from "@/hooks/useSSEConnection";
 import { useEditModeStore } from "@/store/useEditModeStore";
 import { useSelectedMenuStore } from "@/store/useSelectedMenuStore";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import AddMenu from "../menu/AddMenu";
 
 const Header = () => {
@@ -14,6 +15,8 @@ const Header = () => {
     (state) => state.resetSelectedMenuList
   );
   const sseConnection = useSSEConnection();
+
+  const pathname = usePathname();
 
   const onClickEditMode = () => {
     setEditMode(!isEditMode);
@@ -29,6 +32,9 @@ const Header = () => {
         <Link href={"/order"} className="border rounded-lg py-1 px-2">
           주문 목록
         </Link>
+        <Link href={"/sales-manage"} className="border rounded-lg py-1 px-2">
+          매출 관리
+        </Link>
       </div>
 
       <div className="flex gap-4 items-center">
@@ -37,13 +43,17 @@ const Header = () => {
           isConnecting={sseConnection.isConnecting}
           onManualReconnect={sseConnection.manualReconnect}
         />
-        <button
-          className="border rounded-lg py-1 px-2"
-          onClick={onClickEditMode}
-        >
-          {isEditMode ? "수정 완료" : "메뉴 수정"}
-        </button>
-        <AddMenu />
+        {pathname === "/menu" && (
+          <>
+            <button
+              className="border rounded-lg py-1 px-2"
+              onClick={onClickEditMode}
+            >
+              {isEditMode ? "수정 완료" : "메뉴 수정"}
+            </button>
+            <AddMenu />
+          </>
+        )}
       </div>
     </div>
   );
