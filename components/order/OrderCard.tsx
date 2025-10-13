@@ -125,12 +125,15 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
 
         {/* 액션 버튼 (고정) */}
         <div className="p-3 bg-white border-t border-gray-100 flex gap-2">
-          <button
-            onClick={() => deleteOrder(order.id)}
-            className="flex-1 bg-red-300 hover:bg-red-400 text-white font-medium rounded-lg transition-colors duration-200 text-sm"
-          >
-            취소
-          </button>
+          {order.status === "IN_PROGRESS" && (
+            <button
+              onClick={() => deleteOrder(order.id)}
+              className="flex-1 bg-red-300 hover:bg-red-400 text-white font-medium rounded-lg transition-colors duration-200 text-sm"
+            >
+              취소
+            </button>
+          )}
+
           {order.status === "IN_PROGRESS" && (
             <button
               onClick={() => completeOrder(order.id)}
@@ -235,9 +238,6 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
               완료 처리
             </button>
           )}
-          <button className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition-colors duration-200">
-            상세보기
-          </button>
         </div>
       </div>
     </div>

@@ -10,12 +10,12 @@ interface OrderListProps {
 }
 
 const OrderList = ({ statusFilter, layout = "list" }: OrderListProps) => {
-  const orders = useOrderStore((state) => state.orders);
-  const fetchOrders = useOrderStore((state) => state.fetchOrders);
+  const todayOrders = useOrderStore((state) => state.todayOrders);
+  const fetchTodayOrders = useOrderStore((state) => state.fetchTodayOrders);
 
   useEffect(() => {
-    fetchOrders();
-  }, [fetchOrders]);
+    fetchTodayOrders();
+  }, [fetchTodayOrders]);
 
   useEffect(() => {
     console.log("SSE 연결 시작");
@@ -33,7 +33,7 @@ const OrderList = ({ statusFilter, layout = "list" }: OrderListProps) => {
         event.data === "order-deleted"
       ) {
         console.log("주문 목록 새로고침 시작");
-        fetchOrders(); // 주문 목록 새로고침
+        fetchTodayOrders(); // 주문 목록 새로고침
       }
     };
 
@@ -45,23 +45,23 @@ const OrderList = ({ statusFilter, layout = "list" }: OrderListProps) => {
       console.log("SSE 연결 종료");
       eventSource.close();
     };
-  }, [fetchOrders]);
+  }, [fetchTodayOrders]);
 
   const filteredOrders = statusFilter
     ? statusFilter === "COMPLETED"
-      ? orders
+      ? todayOrders
           .filter((order) => order.status === statusFilter)
           .sort(
             (a, b) =>
               new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
           )
-      : orders
+      : todayOrders
           .filter((order) => order.status === statusFilter)
           .sort(
             (a, b) =>
               new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
           )
-    : orders;
+    : todayOrders;
 
   return (
     <div className={layout === "grid" ? "grid grid-cols-4 gap-4" : "space-y-4"}>
