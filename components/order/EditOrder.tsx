@@ -19,7 +19,7 @@ const EditOrder = ({ order }: EditOrderProps) => {
   const updateOrder = useOrderStore((state) => state.updateOrder);
 
   const updateOrderItems = async (newItems: Order["items"]) => {
-    const success = await updateOrder(
+    await updateOrder(
       order.id,
       newItems.map((item) => ({
         menuId: item.menu.id,
@@ -92,15 +92,13 @@ const EditOrder = ({ order }: EditOrderProps) => {
 
   return (
     <Dialog>
-      <DialogTrigger>수정</DialogTrigger>
+      <DialogTrigger>❁</DialogTrigger>
       <DialogContent className="bg-white rounded-2xl shadow-2xl border-0 flex flex-col max-w-4xl w-[90vw] h-[90vh]">
         <DialogHeader className="space-y-3 pb-6">
           <DialogTitle className="text-2xl font-bold text-gray-900 text-center">
             주문 수정
           </DialogTitle>
-          <DialogDescription className="text-gray-600 text-center">
-            주문 정보를 수정해주세요
-          </DialogDescription>
+          <DialogDescription className="text-gray-600 text-center"></DialogDescription>
         </DialogHeader>
 
         <div className="flex flex-col flex-1 gap-4 overflow-y-auto ">
@@ -154,7 +152,7 @@ const EditOrder = ({ order }: EditOrderProps) => {
           )}
 
           {/* 메뉴 리스트 - 40% 높이 */}
-          <div className="h-[40%]flex flex-col overflow-y-auto">
+          <div className="h-[40%] flex flex-col overflow-y-auto">
             <h3 className="text-lg font-semibold text-gray-800 mb-3">
               메뉴 선택
             </h3>

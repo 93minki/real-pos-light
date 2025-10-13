@@ -30,7 +30,6 @@ const SelectedMenuList = () => {
 
     if (res.ok) {
       resetSelectedMenuList();
-      toast.success("주문 성공");
     } else {
       toast.error("주문 실패", {
         description: res.status,
@@ -77,7 +76,7 @@ const SelectedMenuList = () => {
                 </button>
               </div>
 
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col xl:flex-row items-center justify-between">
                 <div className="flex items-center gap-2">
                   <button
                     className="w-8 h-8 bg-red-100 hover:bg-red-200 text-red-600 rounded-lg flex items-center justify-center font-bold transition-colors duration-200"
@@ -99,9 +98,6 @@ const SelectedMenuList = () => {
                   <div className="font-bold text-gray-900">
                     {(item.price * item.quantity).toLocaleString()}원
                   </div>
-                  <div className="text-xs text-gray-500">
-                    {item.price.toLocaleString()}원 × {item.quantity}
-                  </div>
                 </div>
               </div>
             </div>
@@ -112,8 +108,10 @@ const SelectedMenuList = () => {
       {/* 총액 및 주문 버튼 */}
       <div className="p-4 bg-gray-50 border-t border-gray-100">
         <div className="flex items-center justify-between mb-4">
-          <span className="text-lg font-bold text-gray-900">총 결제금액</span>
-          <span className="text-2xl font-bold text-blue-600">
+          <span className="text-md xl:text-lg  font-bold text-gray-900">
+            총 결제금액
+          </span>
+          <span className="text-xl xl:text-2xl font-bold text-blue-600">
             {totalPrice.toLocaleString()}원
           </span>
         </div>

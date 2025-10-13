@@ -50,13 +50,11 @@ const PaymentDialog = ({
         🛒 주문하기
       </DialogTrigger>
       <DialogContent className="bg-white rounded-2xl shadow-2xl border-0 flex flex-col max-w-md w-[90vw]">
-        <DialogHeader className="space-y-3 pb-6">
+        <DialogHeader className="space-y-3 ">
           <DialogTitle className="text-2xl font-bold text-gray-900 text-center">
             💳 결제
           </DialogTitle>
-          <DialogDescription className="text-gray-600 text-center">
-            결제 방법을 선택하고 완료해주세요
-          </DialogDescription>
+          <DialogDescription className="text-gray-600 text-center"></DialogDescription>
         </DialogHeader>
 
         <div className="space-y-6">

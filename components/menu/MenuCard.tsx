@@ -14,7 +14,7 @@ const MenuCard = ({ menu, menuClickHandler }: MenuCardProps) => {
 
   return (
     <div
-      className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 cursor-pointer overflow-hidden group h-full flex flex-col ${
+      className={`menu-card relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 cursor-pointer overflow-hidden group h-full flex flex-col ${
         menu.isActive
           ? "border-green-200 hover:border-green-300"
           : "border-red-200 hover:border-red-300 opacity-60"

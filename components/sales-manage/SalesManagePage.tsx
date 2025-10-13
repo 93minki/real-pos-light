@@ -51,11 +51,11 @@ const SalesManagePage = () => {
   });
 
   return (
-    <div className="w-full h-screen bg-gray-50 p-6 pt-20">
+    <div className="w-full h-dvh bg-gray-50 p-6 pt-24 xl:pt-20">
       <div className="mx-auto h-full">
         <div className="grid grid-cols-12 grid-rows-3 gap-6 h-full">
           {/* 왼쪽: 캘린더 */}
-          <div className="flex items-center justify-center col-span-2 ">
+          <div className="flex items-center justify-center col-span-3 xl:col-span-2 ">
             <Calendar
               year={year}
               setYear={setYear}
@@ -67,7 +67,7 @@ const SalesManagePage = () => {
           </div>
 
           {/* 오른쪽: 주문 리스트 */}
-          <div className="col-span-10 row-span-3 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+          <div className="col-span-9 xl:col-span-10 row-span-3 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             <MonthlyOrderList
               orders={dailyOrders}
               year={year}
@@ -77,7 +77,7 @@ const SalesManagePage = () => {
           </div>
 
           {/* 하단: 차트 토글 */}
-          <div className="flex flex-col justify-center col-span-2 row-span-2">
+          <div className="flex flex-col justify-center col-span-3 xl:col-span-2 row-span-2">
             <div className="flex gap-2 p-4">
               <button
                 onClick={() => {

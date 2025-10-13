@@ -62,7 +62,6 @@ export const useOrderStore = create<OrderStoreType>((set) => ({
       }
 
       useOrderStore.getState().fetchTodayOrders();
-      toast.success("주문 수정 성공");
       return true;
     } catch (error) {
       console.error("주문 수정 실패", error);
@@ -89,7 +88,6 @@ export const useOrderStore = create<OrderStoreType>((set) => ({
         throw new Error(`HTTP Error, status: ${res.status}`);
       }
       useOrderStore.getState().fetchTodayOrders();
-      toast.success("주문 완료 성공");
       return true;
     } catch (error) {
       console.error("주문 완료 실패", error);
@@ -116,7 +114,6 @@ export const useOrderStore = create<OrderStoreType>((set) => ({
         throw new Error(`HTTP Error, status: ${res.status}`);
       }
       useOrderStore.getState().fetchTodayOrders();
-      toast.success("주문 삭제 성공");
       return true;
     } catch (error) {
       set({

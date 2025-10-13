@@ -15,37 +15,7 @@ const OrderList = ({ statusFilter, layout = "list" }: OrderListProps) => {
 
   useEffect(() => {
     fetchTodayOrders();
-  }, [fetchTodayOrders]);
-
-  useEffect(() => {
-    console.log("SSE 연결 시작");
-    const eventSource = new EventSource("/api/events");
-
-    eventSource.onopen = () => {
-      console.log("SSE 연결 성공");
-    };
-
-    eventSource.onmessage = (event) => {
-      console.log("SSE 이벤트 수신:", event.data);
-      if (
-        event.data === "order-created" ||
-        event.data === "order-updated" ||
-        event.data === "order-deleted"
-      ) {
-        console.log("주문 목록 새로고침 시작");
-        fetchTodayOrders(); // 주문 목록 새로고침
-      }
-    };
-
-    eventSource.onerror = (error) => {
-      console.error("SSE 연결 오류:", error);
-    };
-
-    return () => {
-      console.log("SSE 연결 종료");
-      eventSource.close();
-    };
-  }, [fetchTodayOrders]);
+  }, []);
 
   const filteredOrders = statusFilter
     ? statusFilter === "COMPLETED"

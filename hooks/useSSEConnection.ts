@@ -1,4 +1,6 @@
+import { useOrderStore } from "@/store/useOrderStore";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 
 interface SSEConnectionState {
   isConnected: boolean;
@@ -12,6 +14,7 @@ interface UseSSEConnectionOptions {
 }
 
 export const useSSEConnection = (options?: UseSSEConnectionOptions) => {
+  const fetchTodayOrders = useOrderStore((state) => state.fetchTodayOrders);
   const [state, setState] = useState<SSEConnectionState>({
     isConnected: false,
     isConnecting: false,
@@ -44,9 +47,13 @@ export const useSSEConnection = (options?: UseSSEConnectionOptions) => {
 
     eventSource.onmessage = (event) => {
       console.log("SSE 이벤트 수신:", event.data);
-      // 이벤트 데이터를 부모 컴포넌트로 전달
-      if (options?.onMessage) {
-        options.onMessage(event.data);
+      if (event.data === "order-created") {
+        toast.success("주문 추가!");
+        fetchTodayOrders();
+      } else if (event.data === "order-updated") {
+        fetchTodayOrders();
+      } else if (event.data === "order-deleted") {
+        fetchTodayOrders();
       }
     };
 

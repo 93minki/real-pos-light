@@ -41,9 +41,7 @@ const EditMenu = ({ menu }: EditMenuProps) => {
           <DialogTitle className="text-2xl font-bold text-gray-900 text-center">
             메뉴 수정
           </DialogTitle>
-          <DialogDescription className="text-gray-600 text-center">
-            메뉴 정보를 수정해주세요
-          </DialogDescription>
+          <DialogDescription className="text-gray-600 text-center"></DialogDescription>
         </DialogHeader>
 
         <div className="space-y-6">

@@ -4,7 +4,7 @@ import OrderList from "./OrderList";
 
 const OrderPage = () => {
   return (
-    <div className="w-full h-screen flex gap-4 px-4 pt-16 pb-2">
+    <div className="w-full h-dvh flex gap-4 px-4 pt-16 pb-2">
       {/* 진행중인 주문 (왼쪽 - 더 넓은 영역) */}
       <div className="flex-3">
         <div className="h-full bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
