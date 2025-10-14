@@ -180,28 +180,20 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
             className="flex items-center justify-between py-2 border-b border-gray-50 last:border-b-0"
           >
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center text-xs font-semibold text-gray-600">
-                {index + 1}
-              </div>
-              <div>
-                <h4 className="font-medium text-gray-900">{item.menu.name}</h4>
-                <p className="text-sm text-gray-500">{item.menu.category}</p>
-              </div>
+              <h4 className="font-medium text-gray-900">{item.menu.name}</h4>
+              <span className="px-2 py-1 bg-blue-100 text-blue-600 rounded-lg text-sm font-semibold">
+                {item.quantity}개
+              </span>
+              <p className="hidden xl:block text-sm text-gray-500">
+                {item.menu.category}
+              </p>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-500">수량:</span>
-                <span className="w-8 h-8 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-sm font-semibold">
-                  {item.quantity}
-                </span>
+            <div className="text-right">
+              <div className="font-semibold text-gray-900">
+                {(item.price * item.quantity).toLocaleString()}원
               </div>
-              <div className="text-right">
-                <div className="font-semibold text-gray-900">
-                  {(item.price * item.quantity).toLocaleString()}원
-                </div>
-                <div className="text-xs text-gray-500">
-                  {item.price.toLocaleString()}원 × {item.quantity}
-                </div>
+              <div className="hidden xl:block text-xs text-gray-500">
+                {item.price.toLocaleString()}원 × {item.quantity}
               </div>
             </div>
           </div>
