@@ -177,7 +177,7 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
         {order.items.map((item, index) => (
           <div
             key={item.id}
-            className="flex items-center justify-between py-2 border-b border-gray-50 last:border-b-0"
+            className="flex items-center justify-between py-2 border-b border-gray-50 last:border-b-0 text-xs lg:text-md"
           >
             <div className="flex items-center gap-3">
               <h4 className="font-medium text-gray-900">{item.menu.name}</h4>
@@ -203,8 +203,10 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
       {/* 총액 */}
       <div className="px-4 py-3 bg-gray-50 border-t border-gray-100">
         <div className="flex items-center justify-between">
-          <span className="text-lg font-bold text-gray-900">총 결제금액</span>
-          <span className="text-2xl font-bold text-blue-600">
+          <span className="text-xs lg:text-lg font-bold text-gray-900">
+            총 결제금액
+          </span>
+          <span className="text-sm lg:text-2xl font-bold text-blue-600">
             {totalPrice.toLocaleString()}원
           </span>
         </div>

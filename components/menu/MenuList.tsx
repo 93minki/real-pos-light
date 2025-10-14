@@ -20,7 +20,8 @@ const MenuList = ({ columns = 4, menuClickHandler }: MenuListProps) => {
     fetchMenus();
   }, [fetchMenus]);
 
-  const gridCols = columns === 2 ? "grid-cols-2" : "grid-cols-4";
+  const gridCols =
+    columns === 2 ? "grid-cols-2" : "grid-cols-2 md:grid-cols-3 lg:grid-cols-4";
 
   return (
     <div

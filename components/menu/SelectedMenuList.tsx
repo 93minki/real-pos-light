@@ -51,7 +51,7 @@ const SelectedMenuList = () => {
       </div>
 
       {/* 메뉴 목록 */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3">
+      <div className="flex-1 overflow-y-auto p-2 lg:p-4 space-y-3">
         {selectedMenuList.size === 0 ? (
           <div className="text-center py-12 text-gray-500">
             <div className="text-4xl mb-2">🛒</div>
@@ -107,11 +107,11 @@ const SelectedMenuList = () => {
 
       {/* 총액 및 주문 버튼 */}
       <div className="p-4 bg-gray-50 border-t border-gray-100">
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-md xl:text-lg  font-bold text-gray-900">
+        <div className="flex-col lg:flex-row flex lg:items-center justify-between mb-4">
+          <span className="text-xs md:text-md xl:text-lg font-bold text-gray-900">
             총 결제금액
           </span>
-          <span className="text-xl xl:text-2xl font-bold text-blue-600">
+          <span className="text-sm md:text-xl xl:text-2xl font-bold text-blue-600">
             {totalPrice.toLocaleString()}원
           </span>
         </div>
