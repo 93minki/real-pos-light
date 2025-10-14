@@ -25,6 +25,18 @@ export const useSSEConnection = (options?: UseSSEConnectionOptions) => {
   const eventSourceRef = useRef<EventSource | null>(null);
   const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  const playNotificationSound = useCallback(() => {
+    try {
+      const audio = new Audio("/sounds/notification2.mp3");
+      audio.volume = 0.5;
+      audio.play().catch((err) => {
+        console.warn("사운드 재생 실패:", err);
+      });
+    } catch (error) {
+      console.warn("사운드 파일 로드 실패:", error);
+    }
+  }, []);
+
   const connect = useCallback(() => {
     if (eventSourceRef.current) {
       eventSourceRef.current.close();
@@ -49,6 +61,7 @@ export const useSSEConnection = (options?: UseSSEConnectionOptions) => {
       console.log("SSE 이벤트 수신:", event.data);
       if (event.data === "order-created") {
         toast.success("주문 추가!");
+        playNotificationSound();
         fetchTodayOrders();
       } else if (event.data === "order-updated") {
         fetchTodayOrders();

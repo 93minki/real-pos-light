@@ -94,8 +94,6 @@ export async function POST(req: Request) {
       );
     }
 
-    console.log(items);
-
     const totalAmount = items.reduce(
       (acc, item) => acc + item.price * item.quantity,
       0
