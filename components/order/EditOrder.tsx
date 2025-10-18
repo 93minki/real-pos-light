@@ -125,9 +125,6 @@ const EditOrder = ({ order }: EditOrderProps) => {
                       <div className="font-medium text-gray-900">
                         {item.menu.name}
                       </div>
-                      <div className="text-sm text-gray-600">
-                        {item.price.toLocaleString()}원 × {item.quantity}개
-                      </div>
                     </div>
                     <div className="flex items-center gap-2">
                       <button

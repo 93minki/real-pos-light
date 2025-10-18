@@ -62,11 +62,11 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
     return (
       <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full">
         {/* 헤더 */}
-        <div className="p-3 bg-gradient-to-r from-orange-50 to-red-50 border-b border-gray-100">
+        <div className="px-3 py-1 bg-gradient-to-r from-orange-50 to-red-50 border-b border-gray-100">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs font-bold text-gray-500">
                   {new Date(order.createdAt).toLocaleString("ko-KR", {
                     month: "2-digit",
                     day: "2-digit",
@@ -85,17 +85,14 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
         </div>
 
         {/* 메뉴 목록 (스크롤 가능) */}
-        <div className="flex-1 p-3 overflow-y-auto max-h-32">
+        <div className="flex-1 p-3 overflow-y-auto">
           <div className="space-y-2">
             {order.items.map((item, index) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between text-sm"
+                className="flex items-center justify-between text-xl xl:text-2xl"
               >
                 <div className="flex items-center gap-2">
-                  <span className="w-5 h-5 bg-gray-100 rounded text-xs flex items-center justify-center font-semibold text-gray-600">
-                    {index + 1}
-                  </span>
                   <span className="font-medium text-gray-900 truncate">
                     {item.menu.name}
                   </span>
@@ -107,16 +104,6 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-
-        {/* 총액 */}
-        <div className="px-3 py-2 bg-gray-50 border-t border-gray-100">
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-bold text-gray-900">총액</span>
-            <span className="text-lg font-bold text-orange-600">
-              {totalPrice.toLocaleString()}원
-            </span>
           </div>
         </div>
 
@@ -148,7 +135,7 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
   return (
     <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
       {/* 헤더 */}
-      <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
+      <div className="flex items-center justify-between px-4 py-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
         <div className="flex items-center gap-3">
           <div>
             <p className="text-sm text-gray-500">
@@ -177,11 +164,11 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
         {order.items.map((item, index) => (
           <div
             key={item.id}
-            className="flex items-center justify-between py-2 border-b border-gray-50 last:border-b-0 text-xs lg:text-md"
+            className="flex items-center justify-between py-2 border-b border-gray-50 last:border-b-0 text-lg lg:text-xl"
           >
             <div className="flex items-center gap-3">
               <h4 className="font-medium text-gray-900">{item.menu.name}</h4>
-              <span className="px-2 py-1 bg-blue-100 text-blue-600 rounded-lg text-sm font-semibold">
+              <span className="hidden xl:block px-2 py-1 bg-blue-100 text-blue-600 rounded-lg text-sm font-semibold">
                 {item.quantity}개
               </span>
               <p className="hidden xl:block text-sm text-gray-500">
@@ -192,8 +179,9 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
               <div className="font-semibold text-gray-900">
                 {(item.price * item.quantity).toLocaleString()}원
               </div>
-              <div className="hidden xl:block text-xs text-gray-500">
-                {item.price.toLocaleString()}원 × {item.quantity}
+              <div className="block text-xs text-gray-500">
+                {item.price.toLocaleString()}원 ×{" "}
+                <span className="font-extrabold">{item.quantity}</span>
               </div>
             </div>
           </div>
