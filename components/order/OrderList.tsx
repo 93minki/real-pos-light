@@ -38,7 +38,7 @@ const OrderList = ({ statusFilter, layout = "list" }: OrderListProps) => {
       className={`${
         layout === "grid"
           ? "grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 auto-rows-[300px]"
-          : "space-y-4"
+          : "space-y-4 pt-4"
       }`}
     >
       {filteredOrders.length === 0 ? (

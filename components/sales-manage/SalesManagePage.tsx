@@ -3,8 +3,8 @@
 import { Order } from "@/lib/types/Order";
 import { useEffect, useState } from "react";
 import { Calendar } from "./Calendar";
+import DailyOrderList from "./DailyOrderList";
 import DailySalesChart from "./DailySalesChart";
-import MonthlyOrderList from "./MonthlyOrderList";
 import MonthlySalesChart from "./MonthlySalesChart";
 
 const SalesManagePage = () => {
@@ -51,7 +51,7 @@ const SalesManagePage = () => {
   });
 
   return (
-    <div className="w-full h-dvh bg-gray-50 p-6 pt-24 xl:pt-20">
+    <div className="w-full h-dvh bg-gray-50 p-6 pt-18 xl:pt-20">
       <div className="mx-auto h-full">
         <div className="grid grid-cols-12 grid-rows-3 gap-6 h-full">
           {/* 왼쪽: 캘린더 */}
@@ -68,7 +68,7 @@ const SalesManagePage = () => {
 
           {/* 오른쪽: 주문 리스트 */}
           <div className="col-span-9 xl:col-span-10 row-span-3 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-            <MonthlyOrderList
+            <DailyOrderList
               orders={dailyOrders}
               year={year}
               month={month}

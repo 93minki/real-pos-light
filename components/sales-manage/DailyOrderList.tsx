@@ -3,19 +3,19 @@
 import { Order } from "@/lib/types/Order";
 import SalesOrderCard from "./SalesOrderCard";
 
-interface MonthlyOrderListProps {
+interface DailyOrderListProps {
   orders: Order[];
   year: number;
   month: number;
   selectedDay: number;
 }
 
-const MonthlyOrderList = ({
+const DailyOrderList = ({
   orders,
   year,
   month,
   selectedDay,
-}: MonthlyOrderListProps) => {
+}: DailyOrderListProps) => {
   // 최신 순으로 정렬
   const sortedOrders = orders.sort(
     (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
@@ -55,4 +55,4 @@ const MonthlyOrderList = ({
   );
 };
 
-export default MonthlyOrderList;
+export default DailyOrderList;

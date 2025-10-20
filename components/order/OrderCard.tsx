@@ -160,7 +160,7 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
       </div>
 
       {/* 메뉴 목록 */}
-      <div className="p-4 space-y-3">
+      <div className="p-4">
         {order.items.map((item, index) => (
           <div
             key={item.id}
@@ -197,22 +197,6 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
           <span className="text-sm lg:text-2xl font-bold text-blue-600">
             {totalPrice.toLocaleString()}원
           </span>
-        </div>
-      </div>
-
-      {/* 액션 버튼 */}
-      <div className="p-4 bg-white border-t border-gray-100">
-        <div className="flex gap-2">
-          {order.status === "주문완료" && (
-            <button className="flex-1 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg transition-colors duration-200">
-              조리 시작
-            </button>
-          )}
-          {order.status === "조리중" && (
-            <button className="flex-1 px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition-colors duration-200">
-              완료 처리
-            </button>
-          )}
         </div>
       </div>
     </div>

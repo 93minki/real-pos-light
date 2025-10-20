@@ -42,6 +42,77 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 } */
 
+@keyframes shadowRotate {
+  0% {
+    box-shadow: -2px 0 15px 5px rgba(255, 215, 0, 0.5);
+  }
+  25% {
+    box-shadow: 0 -2px 15px 5px rgba(255, 215, 0, 0.7);
+  }
+  50% {
+    box-shadow: 2px 0 15px 5px rgba(255, 215, 0, 1);
+  }
+  75% {
+    box-shadow: 0 2px 15px 5px rgba(255, 215, 0, 0.7);
+  }
+  100% {
+    box-shadow: -2px 0 15px 5px rgba(255, 215, 0, 0.5);
+  }
+}
+
+/* 더 강한 시각적 효과를 위한 새로운 애니메이션 */
+@keyframes shadowPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 0 20px rgba(255, 0, 0, 0.3);
+    transform: scale(1.02);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+    transform: scale(1);
+  }
+}
+
+/* 파란색 긴급감 있는 효과 */
+@keyframes shadowUrgent {
+  0% {
+    box-shadow: -3px 0 20px 8px rgba(0, 123, 255, 0.6);
+    border: 2px solid rgba(0, 123, 255, 0.8);
+  }
+  25% {
+    box-shadow: 0 -3px 20px 8px rgba(0, 123, 255, 0.8);
+    border: 2px solid rgba(0, 123, 255, 1);
+  }
+  50% {
+    box-shadow: 3px 0 20px 8px rgba(0, 123, 255, 1);
+    border: 2px solid rgba(0, 123, 255, 1);
+  }
+  75% {
+    box-shadow: 0 3px 20px 8px rgba(0, 123, 255, 0.8);
+    border: 2px solid rgba(0, 123, 255, 1);
+  }
+  100% {
+    box-shadow: -3px 0 20px 8px rgba(0, 123, 255, 0.6);
+    border: 2px solid rgba(0, 123, 255, 0.8);
+  }
+}
+
+.shadow-animated {
+  animation: shadowRotate 4s linear infinite;
+}
+
+/* 새로운 강화된 효과들 */
+.shadow-pulse {
+  animation: shadowPulse 2s ease-in-out infinite;
+}
+
+.shadow-urgent {
+  animation: shadowUrgent 3s linear infinite;
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
 

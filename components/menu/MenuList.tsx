@@ -25,7 +25,9 @@ const MenuList = ({ columns = 4, menuClickHandler }: MenuListProps) => {
 
   return (
     <div
-      className={`w-full grid ${gridCols} gap-4 border rounded-lg p-4 overflow-y-auto`}
+      className={`relative w-full grid ${gridCols} gap-4 border rounded-lg p-4 overflow-y-auto ${
+        isEditMode ? "shadow-urgent" : ""
+      }`}
       style={{ gridAutoRows: "min-content" }}
     >
       {menus
