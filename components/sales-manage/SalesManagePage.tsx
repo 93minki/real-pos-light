@@ -4,6 +4,7 @@ import { Order } from "@/lib/types/Order";
 import { useEffect, useState } from "react";
 import { Calendar } from "./Calendar";
 import DailyOrderList from "./DailyOrderList";
+import DailySalesBarChart from "./DailySalesBarChart";
 import DailySalesChart from "./DailySalesChart";
 import MonthlySalesChart from "./MonthlySalesChart";
 
@@ -66,14 +67,25 @@ const SalesManagePage = () => {
             />
           </div>
 
-          {/* 오른쪽: 주문 리스트 */}
-          <div className="col-span-9 xl:col-span-10 row-span-3 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-            <DailyOrderList
-              orders={dailyOrders}
-              year={year}
-              month={month}
-              selectedDay={day}
-            />
+          {/* 오른쪽: 차트와 주문 리스트 */}
+          <div className="col-span-9 xl:col-span-10 row-span-3 bg-white rounded-xl shadow-sm border border-gray-200 h-full flex flex-col">
+            {/* 차트 섹션 */}
+            <div className="p-6 border-b border-gray-100">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                메뉴별 판매량 차트
+              </h2>
+              <DailySalesBarChart orders={dailyOrders} />
+            </div>
+
+            {/* 주문 리스트 섹션 */}
+            <div className="flex-1 overflow-hidden">
+              <DailyOrderList
+                orders={dailyOrders}
+                year={year}
+                month={month}
+                selectedDay={day}
+              />
+            </div>
           </div>
 
           {/* 하단: 차트 토글 */}

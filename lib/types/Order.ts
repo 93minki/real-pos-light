@@ -4,7 +4,6 @@ export type OrderItem = {
   id: number;
   menu: Menu;
   quantity: number;
-
   price: number;
 };
 
