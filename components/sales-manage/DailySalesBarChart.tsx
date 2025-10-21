@@ -18,7 +18,6 @@ interface DailySalesBarChart {
 }
 
 const DailySalesBarChart = ({ orders }: DailySalesBarChart) => {
-  // 메뉴별 판매량 계산
   const menuSales = React.useMemo(() => {
     const menuMap = new Map<string, number>();
 
@@ -33,15 +32,14 @@ const DailySalesBarChart = ({ orders }: DailySalesBarChart) => {
     });
 
     return Array.from(menuMap.entries())
-      .map(([name, count], index) => ({
+      .map(([name, count]) => ({
         menu: name,
         sales: count,
-        fill: getMenuColor(name, index),
+        fill: getMenuColor(name),
       }))
       .sort((a, b) => b.sales - a.sales);
   }, [orders]);
 
-  // 차트 설정
   const chartConfig = React.useMemo(() => {
     const config: ChartConfig = {
       sales: {
@@ -49,10 +47,10 @@ const DailySalesBarChart = ({ orders }: DailySalesBarChart) => {
       },
     };
 
-    menuSales.forEach((item, index) => {
+    menuSales.forEach((item) => {
       config[item.menu] = {
         label: item.menu,
-        color: getMenuColor(item.menu, index),
+        color: getMenuColor(item.menu),
       };
     });
 
@@ -68,7 +66,6 @@ const DailySalesBarChart = ({ orders }: DailySalesBarChart) => {
     );
   }
 
-  // 메뉴 개수에 따른 동적 너비 계산
   const getChartWidth = () => {
     const menuCount = menuSales.length;
     if (menuCount <= 2) return "w-1/4";

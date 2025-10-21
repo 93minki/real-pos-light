@@ -57,11 +57,9 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
     0
   );
 
-  // Grid 레이아웃용 간소화된 카드
   if (layout === "grid") {
     return (
       <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full">
-        {/* 헤더 */}
         <div className="px-3 py-1 bg-gradient-to-r from-orange-50 to-red-50 border-b border-gray-100">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -78,13 +76,10 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              {/* 수정 아이콘 */}
               <EditOrder order={order} />
             </div>
           </div>
         </div>
-
-        {/* 메뉴 목록 (스크롤 가능) */}
         <div className="flex-1 p-3 overflow-y-auto">
           <div className="space-y-2">
             {order.items.map((item, index) => (
@@ -107,7 +102,6 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
           </div>
         </div>
 
-        {/* 액션 버튼 (고정) */}
         <div className="p-3 bg-white border-t border-gray-100 flex gap-2">
           {order.status === "IN_PROGRESS" && (
             <button
@@ -131,10 +125,8 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
     );
   }
 
-  // 기존 List 레이아웃
   return (
     <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden">
-      {/* 헤더 */}
       <div className="flex items-center justify-between px-4 py-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
         <div className="flex items-center gap-3">
           <div>
@@ -159,7 +151,6 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
         </div>
       </div>
 
-      {/* 메뉴 목록 */}
       <div className="p-4">
         {order.items.map((item, index) => (
           <div
@@ -188,7 +179,6 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
         ))}
       </div>
 
-      {/* 총액 */}
       <div className="px-4 py-3 bg-gray-50 border-t border-gray-100">
         <div className="flex items-center justify-between">
           <span className="text-xs lg:text-lg font-bold text-gray-900">

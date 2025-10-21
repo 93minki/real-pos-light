@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Calendar } from "./Calendar";
 import DailyOrderList from "./DailyOrderList";
 import DailySalesBarChart from "./DailySalesBarChart";
-import DailySalesChart from "./DailySalesChart";
+import { HourlySalesChart } from "./HourlySalesChart";
 import MonthlySalesChart from "./MonthlySalesChart";
 
 const SalesManagePage = () => {
@@ -14,12 +14,8 @@ const SalesManagePage = () => {
   const [month, setMonth] = useState<number>(date.getMonth() + 1);
   const [day, setDay] = useState<number>(date.getDate());
 
-  const [chartType, setChartType] = useState<"monthly" | "daily">("monthly");
-
-  // 월별 주문 데이터 상태
   const [monthlyOrders, setMonthlyOrders] = useState<Order[]>([]);
-
-  // 월별 주문 데이터 fetch
+  const [chartOrList, setChartOrList] = useState<"chart" | "list">("chart");
   useEffect(() => {
     const fetchMonthlyOrders = async () => {
       try {
@@ -40,7 +36,6 @@ const SalesManagePage = () => {
     fetchMonthlyOrders();
   }, [year, month]);
 
-  // 선택된 날짜의 주문만 필터링
   const dailyOrders = monthlyOrders.filter((order) => {
     const orderDate = new Date(order.createdAt);
     return (
@@ -51,11 +46,21 @@ const SalesManagePage = () => {
     );
   });
 
+  const sortedOrders = dailyOrders.sort(
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+  );
+
+  const dailySales = dailyOrders.reduce((acc, order) => {
+    return (
+      acc +
+      order.items.reduce((acc, item) => acc + item.price * item.quantity, 0)
+    );
+  }, 0);
+
   return (
     <div className="w-full h-dvh bg-gray-50 p-6 pt-18 xl:pt-20">
       <div className="mx-auto h-full">
         <div className="grid grid-cols-12 grid-rows-3 gap-6 h-full">
-          {/* 왼쪽: 캘린더 */}
           <div className="flex items-center justify-center col-span-3 xl:col-span-2 ">
             <Calendar
               year={year}
@@ -67,65 +72,59 @@ const SalesManagePage = () => {
             />
           </div>
 
-          {/* 오른쪽: 차트와 주문 리스트 */}
           <div className="col-span-9 xl:col-span-10 row-span-3 bg-white rounded-xl shadow-sm border border-gray-200 h-full flex flex-col">
-            {/* 차트 섹션 */}
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                메뉴별 판매량 차트
-              </h2>
-              <DailySalesBarChart orders={dailyOrders} />
-            </div>
-
-            {/* 주문 리스트 섹션 */}
-            <div className="flex-1 overflow-hidden">
-              <DailyOrderList
-                orders={dailyOrders}
-                year={year}
-                month={month}
-                selectedDay={day}
-              />
-            </div>
+            {chartOrList === "chart" ? (
+              <div className="p-6 border-b border-gray-100">
+                <div className="flex items-center justify-between">
+                  <h2
+                    className="text-lg font-semibold text-gray-900 mb-4 cursor-pointer"
+                    onClick={() => setChartOrList("list")}
+                  >
+                    메뉴별 판매량 차트
+                  </h2>
+                  <p className="text-xl text-gray-600 mb-4 font-bold">
+                    총 {dailySales.toLocaleString()}원
+                  </p>
+                </div>
+                <DailySalesBarChart orders={dailyOrders} />
+                <HourlySalesChart orders={dailyOrders} />
+              </div>
+            ) : (
+              <div className="flex-1 overflow-hidden">
+                <div className="h-full flex flex-col">
+                  <div className="flex items-center justify-between">
+                    <div className="px-6 py-4 border-b border-gray-100">
+                      <h2
+                        className="text-lg font-semibold text-gray-900 cursor-pointer"
+                        onClick={() => setChartOrList("chart")}
+                      >
+                        {year}년 {month}월 {day}일 주문 내역
+                      </h2>
+                      <p className="text-xs text-gray-600 mt-1">
+                        총 {sortedOrders.length}건의 완료된 주문
+                      </p>
+                    </div>
+                    <p className="text-xl text-gray-600 font-bold px-6 py-4">
+                      {dailySales.toLocaleString()}원
+                    </p>
+                  </div>
+                  <DailyOrderList
+                    orders={sortedOrders}
+                    year={year}
+                    month={month}
+                    selectedDay={day}
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* 하단: 차트 토글 */}
           <div className="flex flex-col justify-center col-span-3 xl:col-span-2 row-span-2">
-            <div className="flex gap-2 p-4">
-              <button
-                onClick={() => {
-                  setChartType("monthly");
-                }}
-                className={`w-full h-10 ${
-                  chartType === "monthly" ? "bg-gray-500" : "bg-gray-400"
-                }  text-white rounded-lg`}
-              >
-                월 매출 차트
-              </button>
-              <button
-                onClick={() => {
-                  setChartType("daily");
-                }}
-                className={`w-full h-10 ${
-                  chartType === "daily" ? "bg-gray-500" : "bg-gray-400"
-                }  text-white rounded-lg`}
-              >
-                일일 매출 차트
-              </button>
-            </div>
-            {chartType === "monthly" ? (
-              <MonthlySalesChart
-                orders={monthlyOrders}
-                year={year}
-                month={month}
-              />
-            ) : (
-              <DailySalesChart
-                orders={dailyOrders}
-                year={year}
-                month={month}
-                day={day}
-              />
-            )}
+            <MonthlySalesChart
+              orders={monthlyOrders}
+              year={year}
+              month={month}
+            />
           </div>
         </div>
       </div>

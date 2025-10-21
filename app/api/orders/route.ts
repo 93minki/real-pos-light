@@ -16,7 +16,6 @@ export async function GET(request: Request) {
     let whereClause = {};
 
     if (date) {
-      // 특정 날짜의 주문 조회 (00:00 ~ 23:59)
       const startDate = new Date(date);
       startDate.setHours(0, 0, 0, 0);
       const endDate = new Date(date);
@@ -29,7 +28,6 @@ export async function GET(request: Request) {
         },
       };
     } else if (month) {
-      // 특정 월의 주문 조회
       const [year, monthNum] = month.split("-");
       const startDate = new Date(parseInt(year), parseInt(monthNum) - 1, 1);
       const endDate = new Date(
@@ -49,7 +47,6 @@ export async function GET(request: Request) {
         },
       };
     } else {
-      // 기본값: 오늘 날짜의 주문 조회
       const today = new Date();
       const startDate = new Date(today);
       startDate.setHours(0, 0, 0, 0);

@@ -1,4 +1,3 @@
-// 메뉴 이름, 가격, 카테고리, 활성상태 수정
 "use client";
 import { Menu } from "@/lib/types/Menu";
 import { useMenuStore } from "@/store/useMenuStore";

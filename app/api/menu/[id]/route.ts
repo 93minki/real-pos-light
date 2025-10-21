@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// 메뉴 수정, 메뉴 삭제? 삭제는 하지 않을 예정
-// 메뉴 수정은 이름, 가격, 카테고리, 설명, 활성화 여부 등을 수정함
 
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";

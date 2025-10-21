@@ -1,4 +1,3 @@
-// 차트용 고정 색상 팔레트
 export const CHART_COLOR_PALETTE = [
   "#3B82F6", // 파란색
   "#EF4444", // 빨간색
@@ -10,9 +9,42 @@ export const CHART_COLOR_PALETTE = [
   "#84CC16", // 라임색
   "#F97316", // 오렌지색
   "#6366F1", // 인디고색
+  "#F59E0B", // 노란색
+  "#EF4444", // 빨간색
+  "#10B981", // 초록색
+  "#8B5CF6", // 보라색
+  "#EC4899", // 핑크색
+  "#06B6D4", // 청록색
+  "#84CC16", // 라임색
+  "#F97316", // 오렌지색
+  "#6366F1", // 인디고색
+  "#3B82F6", // 파란색
 ] as const;
 
-// 메뉴별 고정 색상 매핑 (일관성을 위해)
-export const getMenuColor = (menuName: string, index: number): string => {
-  return CHART_COLOR_PALETTE[index % CHART_COLOR_PALETTE.length];
+// 메뉴 이름을 기반으로 일관된 색상 반환
+export const getMenuColor = (menuName: string): string => {
+  // 메뉴 이름의 해시값을 생성하여 일관된 색상 반환
+  let hash = 0;
+  for (let i = 0; i < menuName.length; i++) {
+    const char = menuName.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash = hash & hash; // 32bit 정수로 변환
+  }
+
+  // 음수를 양수로 변환하고 팔레트 인덱스로 사용
+  const index = Math.abs(hash) % CHART_COLOR_PALETTE.length;
+  return CHART_COLOR_PALETTE[index];
+};
+
+// 모든 메뉴에 대한 색상 매핑 생성
+export const generateMenuColorMap = (
+  allMenuNames: string[]
+): Record<string, string> => {
+  const colorMap: Record<string, string> = {};
+
+  allMenuNames.forEach((menuName) => {
+    colorMap[menuName] = getMenuColor(menuName);
+  });
+
+  return colorMap;
 };

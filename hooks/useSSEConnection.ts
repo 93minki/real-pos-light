@@ -79,7 +79,6 @@ export const useSSEConnection = (options?: UseSSEConnectionOptions) => {
         lastError: "SSE 연결 오류",
       }));
 
-      // 자동 재연결 시도
       const maxAttempts = 5;
       if (state.reconnectAttempts < maxAttempts) {
         const delay = Math.pow(2, state.reconnectAttempts) * 1000; // 지수 백오프

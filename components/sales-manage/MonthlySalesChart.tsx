@@ -27,7 +27,6 @@ interface MonthlySalesChartProps {
 }
 
 const MonthlySalesChart = ({ orders, year, month }: MonthlySalesChartProps) => {
-  // 메뉴별 판매량 계산
   const menuSales = React.useMemo(() => {
     const menuMap = new Map<string, number>();
 
@@ -42,16 +41,15 @@ const MonthlySalesChart = ({ orders, year, month }: MonthlySalesChartProps) => {
     });
 
     return Array.from(menuMap.entries())
-      .map(([name, count], index) => ({
+      .map(([name, count]) => ({
         menu: name,
         sales: count,
-        fill: getMenuColor(name, index),
+        fill: getMenuColor(name),
       }))
       .sort((a, b) => b.sales - a.sales)
       .slice(0, 5); // 상위 5개 메뉴만 표시
   }, [orders]);
 
-  // 차트 설정
   const chartConfig = React.useMemo(() => {
     const config: ChartConfig = {
       sales: {
@@ -59,10 +57,10 @@ const MonthlySalesChart = ({ orders, year, month }: MonthlySalesChartProps) => {
       },
     };
 
-    menuSales.forEach((item, index) => {
+    menuSales.forEach((item) => {
       config[item.menu] = {
         label: item.menu,
-        color: getMenuColor(item.menu, index),
+        color: getMenuColor(item.menu),
       };
     });
 
@@ -73,7 +71,6 @@ const MonthlySalesChart = ({ orders, year, month }: MonthlySalesChartProps) => {
     return menuSales.reduce((acc, curr) => acc + curr.sales, 0);
   }, [menuSales]);
 
-  // 총 매출 금액 계산
   const totalRevenue = React.useMemo(() => {
     return orders
       .filter((order) => order.status === "COMPLETED")
@@ -90,7 +87,9 @@ const MonthlySalesChart = ({ orders, year, month }: MonthlySalesChartProps) => {
     return (
       <Card className="flex flex-col">
         <CardHeader className="items-center pb-0">
-          <CardTitle className="text-xl font-semibold">월 매출 통계</CardTitle>
+          <CardTitle className="text-xl font-semibold">
+            {month} 월 매출 통계
+          </CardTitle>
           <CardDescription className="text-gray-600">
             {year}년 {month}월
           </CardDescription>
@@ -111,7 +110,9 @@ const MonthlySalesChart = ({ orders, year, month }: MonthlySalesChartProps) => {
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle className="text-xl font-semibold">월 매출 통계</CardTitle>
+        <CardTitle className="text-xl font-semibold">
+          {month} 월 매출 통계
+        </CardTitle>
         <CardDescription className="text-gray-600">
           {year}년 {month}월
         </CardDescription>

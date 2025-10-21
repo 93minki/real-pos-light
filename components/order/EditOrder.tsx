@@ -19,11 +19,9 @@ interface EditOrderProps {
 const EditOrder = ({ order }: EditOrderProps) => {
   const updateOrder = useOrderStore((state) => state.updateOrder);
 
-  // 다이얼로그 열림 상태 및 편집 버퍼 상태
   const [open, setOpen] = useState(false);
   const [editableItems, setEditableItems] = useState<Order["items"]>([]);
 
-  // 다이얼로그가 열릴 때 원본 주문 항목을 편집 버퍼로 복사
   useEffect(() => {
     if (open) {
       setEditableItems(order.items);
@@ -87,7 +85,6 @@ const EditOrder = ({ order }: EditOrderProps) => {
     );
   };
 
-  // 확인 버튼에서 한 번만 API 업데이트
   const handleConfirm = async () => {
     await updateOrderItems(editableItems);
     setOpen(false);
