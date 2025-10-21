@@ -82,8 +82,11 @@ const SalesManagePage = () => {
                   >
                     메뉴별 판매량 차트
                   </h2>
-                  <p className="text-xl text-gray-600 mb-4 font-bold">
-                    총 {dailySales.toLocaleString()}원
+                  <p className="text-xl text-gray-600 mb-4 font-bold flex flex-col">
+                    <span>총 {dailySales.toLocaleString()}원</span>
+                    <span className="text-xs">
+                      {sortedOrders.length}건의 완료된 주문
+                    </span>
                   </p>
                 </div>
                 <DailySalesBarChart orders={dailyOrders} />

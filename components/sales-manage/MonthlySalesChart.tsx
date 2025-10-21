@@ -156,7 +156,7 @@ const MonthlySalesChart = ({ orders, year, month }: MonthlySalesChartProps) => {
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          총 판매량
+                          총 주문량
                         </tspan>
                       </text>
                     );

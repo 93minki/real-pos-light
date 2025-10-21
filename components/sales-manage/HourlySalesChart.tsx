@@ -63,7 +63,7 @@ const CustomLegend = ({
   colors: string[];
 }) => {
   return (
-    <div className="flex flex-wrap justify-center gap-4 mt-4 p-4 bg-gray-50 rounded-lg">
+    <div className="flex flex-wrap justify-center gap-4 p-2 bg-gray-50 rounded-lg">
       {menuNames.map((menuName, index) => (
         <div key={menuName} className="flex items-center gap-2">
           <div
