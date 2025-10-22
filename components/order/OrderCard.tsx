@@ -82,10 +82,10 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
         </div>
         <div className="flex-1 p-3 overflow-y-auto">
           <div className="space-y-2">
-            {order.items.map((item, index) => (
+            {order.items.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between text-xl xl:text-2xl"
+                className="flex items-center justify-between text-sm sm:text-xl xl:text-2xl"
               >
                 <div className="flex items-center gap-2">
                   <span className="font-medium text-gray-900 truncate">
@@ -130,7 +130,7 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
       <div className="flex items-center justify-between px-4 py-1.5 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
         <div className="flex items-center gap-3">
           <div>
-            <p className="text-sm text-gray-500">
+            <p className="text-xs sm:text-sm text-gray-500">
               {new Date(order.createdAt).toLocaleString("ko-KR", {
                 month: "2-digit",
                 day: "2-digit",
@@ -142,7 +142,7 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
           </div>
         </div>
         <div
-          className={`px-3 py-1.5 rounded-full text-sm font-medium border ${getStatusColor(
+          className={`hidden sm:block px-3 py-1.5 rounded-full text-sm font-medium border ${getStatusColor(
             order.status
           )}`}
         >
@@ -155,7 +155,7 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
         {order.items.map((item, index) => (
           <div
             key={item.id}
-            className="flex items-center justify-between py-2 border-b border-gray-50 last:border-b-0 text-lg lg:text-xl"
+            className="flex items-center justify-between py-2 border-b border-gray-50 last:border-b-0 text-sm sm:text-lg lg:text-xl"
           >
             <div className="flex items-center gap-3">
               <h4 className="font-medium text-gray-900">{item.menu.name}</h4>
@@ -169,8 +169,9 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
             <div className="text-right">
               <div className="font-semibold text-gray-900">
                 {(item.price * item.quantity).toLocaleString()}원
+                <span className="sm:hidden">({item.quantity})</span>
               </div>
-              <div className="block text-xs text-gray-500">
+              <div className="hidden sm:block text-xs text-gray-500">
                 {item.price.toLocaleString()}원 ×{" "}
                 <span className="font-extrabold">{item.quantity}</span>
               </div>

@@ -117,11 +117,8 @@ const MonthlySalesChart = ({ orders, year, month }: MonthlySalesChartProps) => {
           {year}년 {month}월
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
-        >
+      <CardContent className="flex-1 pb-0 px-4 py-2">
+        <ChartContainer config={chartConfig} className="mx-auto aspect-square ">
           <PieChart>
             <ChartTooltip
               cursor={false}
@@ -130,6 +127,7 @@ const MonthlySalesChart = ({ orders, year, month }: MonthlySalesChartProps) => {
             <Pie
               data={menuSales}
               dataKey="sales"
+              label={({ name, value }) => `${name} (${value})`}
               nameKey="menu"
               innerRadius={60}
               strokeWidth={5}

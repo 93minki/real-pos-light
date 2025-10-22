@@ -38,7 +38,7 @@ const SelectedMenuList = () => {
   };
 
   return (
-    <div className="flex flex-col h-full sm:w-1/4 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+    <div className="flex flex-col flex-2 sm:w-1/4 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
       {/* 헤더 */}
       <div className="p-2 sm:p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
         <h2 className="text-sm  sm:text-xl font-bold text-gray-900 flex items-center gap-2">
@@ -64,10 +64,8 @@ const SelectedMenuList = () => {
               key={menuId}
               className="bg-gray-50 rounded-xl p-4 border border-gray-100"
             >
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="font-semibold text-gray-900 text-lg">
-                  {item.name}
-                </h3>
+              <div className="flex items-center justify-between mb-3 text-sm sm:text-lg">
+                <h3 className="font-semibold text-gray-900">{item.name}</h3>
                 <button
                   onClick={() => removeMenu(menuId)}
                   className="text-red-500 hover:text-red-700 transition-colors duration-200"
@@ -76,19 +74,19 @@ const SelectedMenuList = () => {
                 </button>
               </div>
 
-              <div className="flex flex-row sm:flex-col xl:flex-row items-center justify-between">
+              <div className="flex flex-row sm:flex-col xl:flex-row items-center justify-between text-sm sm:text-lg">
                 <div className="flex items-center gap-2">
                   <button
-                    className="w-8 h-8 bg-red-100 hover:bg-red-200 text-red-600 rounded-lg flex items-center justify-center font-bold transition-colors duration-200"
+                    className="w-6 sm:w-8 h-6 sm:h-8 bg-red-100 hover:bg-red-200 text-red-600 rounded-lg flex items-center justify-center font-bold transition-colors duration-200"
                     onClick={() => updateQuantity(menuId, item.quantity - 1)}
                   >
                     -
                   </button>
-                  <span className="w-12 h-8 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold">
+                  <span className="w-10 sm:w-12 h-6 sm:h-8 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold">
                     {item.quantity}
                   </span>
                   <button
-                    className="w-8 h-8 bg-green-100 hover:bg-green-200 text-green-600 rounded-lg flex items-center justify-center font-bold transition-colors duration-200"
+                    className="w-6 sm:w-8 h-6 sm:h-8 bg-green-100 hover:bg-green-200 text-green-600 rounded-lg flex items-center justify-center font-bold transition-colors duration-200"
                     onClick={() => updateQuantity(menuId, item.quantity + 1)}
                   >
                     +

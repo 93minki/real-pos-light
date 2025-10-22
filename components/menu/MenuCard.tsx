@@ -25,10 +25,10 @@ const MenuCard = ({ menu, menuClickHandler }: MenuCardProps) => {
     >
       {/* 메뉴 정보 */}
       <div className="p-6 text-center flex-1 flex flex-col justify-center">
-        <h3 className="text-2xl font-bold text-gray-900 mb-2 line-clamp-2">
+        <h3 className="text-xs sm:text-2xl font-bold text-gray-900 mb-2 line-clamp-2">
           {menu.name}
         </h3>
-        <div className="text-3xl font-bold text-blue-600">
+        <div className="text-sm  sm:text-3xl font-bold text-blue-600">
           {menu.price.toLocaleString()}원
         </div>
         {menu.category && (

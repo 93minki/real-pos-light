@@ -25,7 +25,7 @@ const MenuList = ({ columns = 4, menuClickHandler }: MenuListProps) => {
 
   return (
     <div
-      className={`relative w-full grid ${gridCols} gap-4 border rounded-lg p-4 overflow-y-auto ${
+      className={`relative w-full grid flex-6 ${gridCols} gap-4 border rounded-lg p-4 overflow-y-auto ${
         isEditMode ? "shadow-urgent" : ""
       }`}
       style={{ gridAutoRows: "min-content" }}
@@ -33,7 +33,7 @@ const MenuList = ({ columns = 4, menuClickHandler }: MenuListProps) => {
       {menus
         .filter((m) => (isEditMode ? true : m.isActive))
         .map((menu) => (
-          <div key={menu.id} className="h-48">
+          <div key={menu.id} className="h-30 sm:h-48">
             <MenuCard menu={menu} menuClickHandler={menuClickHandler} />
           </div>
         ))}
