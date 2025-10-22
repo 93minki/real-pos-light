@@ -39,7 +39,9 @@ const ConnectionIndicator = ({
   return (
     <div className="flex items-center gap-2">
       <span className="text-sm">{statusInfo.icon}</span>
-      <span className={`text-sm font-medium ${statusInfo.color}`}>
+      <span
+        className={`hidden sm:block text-sm font-medium ${statusInfo.color}`}
+      >
         {statusInfo.text}
       </span>
       {!isConnected && !isConnecting && onManualReconnect && (

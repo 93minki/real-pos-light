@@ -41,7 +41,7 @@ const PaymentDialog = ({
       }}
     >
       <DialogTrigger
-        className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-200 ${
+        className={`w-full py-2 sm:py-4 rounded-xl font-bold text-sm sm:text-lg transition-all duration-200 ${
           disabled
             ? "bg-gray-200 text-gray-500 cursor-not-allowed"
             : "bg-blue-500 hover:bg-blue-600 text-white shadow-lg hover:shadow-xl"

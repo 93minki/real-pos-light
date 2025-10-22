@@ -24,9 +24,10 @@ const AddMenu = () => {
     <Dialog>
       <DialogTrigger
         onClick={(e) => e.stopPropagation()}
-        className="px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md"
+        className="px-2 sm:px-4 py-1 sm:py-2  bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md"
       >
-        ✏️ 추가
+        <span>✏️</span>
+        <span className="hidden sm:block">추가</span>
       </DialogTrigger>
       <DialogContent
         onClick={(e) => e.stopPropagation()}

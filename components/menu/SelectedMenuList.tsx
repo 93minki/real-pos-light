@@ -38,14 +38,14 @@ const SelectedMenuList = () => {
   };
 
   return (
-    <div className="flex flex-col h-full w-1/4 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+    <div className="flex flex-col h-full sm:w-1/4 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
       {/* 헤더 */}
-      <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
-        <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+      <div className="p-2 sm:p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
+        <h2 className="text-sm  sm:text-xl font-bold text-gray-900 flex items-center gap-2">
           <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
           선택된 메뉴
         </h2>
-        <p className="text-sm text-gray-600 mt-1">
+        <p className="hidden sm:block *:text-sm text-gray-600 mt-1">
           {selectedMenuList.size}개 메뉴 선택됨
         </p>
       </div>
@@ -76,7 +76,7 @@ const SelectedMenuList = () => {
                 </button>
               </div>
 
-              <div className="flex flex-col xl:flex-row items-center justify-between">
+              <div className="flex flex-row sm:flex-col xl:flex-row items-center justify-between">
                 <div className="flex items-center gap-2">
                   <button
                     className="w-8 h-8 bg-red-100 hover:bg-red-200 text-red-600 rounded-lg flex items-center justify-center font-bold transition-colors duration-200"
@@ -108,7 +108,7 @@ const SelectedMenuList = () => {
       {/* 총액 및 주문 버튼 */}
       <div className="p-4 bg-gray-50 border-t border-gray-100">
         <div className="flex-col lg:flex-row flex lg:items-center justify-between mb-4">
-          <span className="text-xs md:text-md xl:text-lg font-bold text-gray-900">
+          <span className="hidden sm:block text-xs md:text-md xl:text-lg font-bold text-gray-900">
             총 결제금액
           </span>
           <span className="text-sm md:text-xl xl:text-2xl font-bold text-blue-600">
