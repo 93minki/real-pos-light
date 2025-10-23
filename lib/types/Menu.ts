@@ -2,7 +2,7 @@ export type Menu = {
   id: number;
   name: string;
   price: number;
-  category?: string;
+  categoryId?: number;
   desrciption?: string;
   createdAt: Date;
   updatedAt: Date;

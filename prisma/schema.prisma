@@ -8,21 +8,32 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-model Menu {
+model Category {
   id          Int          @id @default(autoincrement())
+  name        String       @unique
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  menus       Menu[]
+}
+
+model Menu {
+  id          Int           @id @default(autoincrement())
   name        String        
   price       Int
-  category    String?       
+  categoryId  Int           @default(1)   
   description String?
   isActive    Boolean       @default(true)
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 
+  category    Category      @relation(fields: [categoryId], references: [id])
   orderItems  OrderItem[]   
 }
 
 model Orders {
-  id         Int          @id @default(autoincrement())
+  id         Int           @id @default(autoincrement())
   status     OrderStatus   @default(IN_PROGRESS)
   createdAt  DateTime      @default(now())
   updatedAt  DateTime      @updatedAt
@@ -36,7 +47,7 @@ model OrderItem {
   price     Int     
   
   orderId   Int
-  order     Orders    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  order     Orders   @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   menuId    Int
   menu      Menu     @relation(fields: [menuId], references: [id], onDelete: Cascade)

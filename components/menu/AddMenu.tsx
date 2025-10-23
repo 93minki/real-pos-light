@@ -1,6 +1,8 @@
 "use client";
 import { useMenuStore } from "@/store/useMenuStore";
 import { useState } from "react";
+import AddCategory from "../category/AddCategory";
+import CategorySelector from "../category/CategorySelector";
 import {
   Dialog,
   DialogClose,
@@ -15,16 +17,21 @@ import {
 const AddMenu = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
-  const [category, setCategory] = useState("");
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number>(1);
   const [isActive, setIsActive] = useState(true);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const addMenu = useMenuStore((state) => state.addMenu);
+
+  const handleCategoryAdded = () => {
+    setRefreshKey((prev) => prev + 1);
+  };
 
   return (
     <Dialog>
       <DialogTrigger
         onClick={(e) => e.stopPropagation()}
-        className="px-2 sm:px-4 py-1 sm:py-2  bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md"
+        className="flex gap-1 px-2 sm:px-3 py-1 sm:py-1.5  bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md"
       >
         <span>✏️</span>
         <span className="hidden sm:block">추가</span>
@@ -98,35 +105,51 @@ const AddMenu = () => {
           </div>
 
           {/* 카테고리 */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <label className="text-sm font-semibold text-gray-700">
               카테고리
             </label>
-            <input
-              type="text"
-              value={category}
-              placeholder="카테고리를 입력하세요"
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white"
-              onChange={(e) => setCategory(e.target.value)}
-            />
+
+            <div className="flex gap-2">
+              <div className="flex-1">
+                <CategorySelector
+                  selectedCategoryId={1}
+                  onCategoryChange={(categoryId: number) => {
+                    setSelectedCategoryId(categoryId);
+                  }}
+                  placeholder="카테고리를 선택하세요"
+                />
+              </div>
+              <AddCategory onCategoryAdded={handleCategoryAdded} />
+            </div>
           </div>
 
           {/* 활성상태 */}
-          <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-semibold text-gray-700">
-                {isActive ? "판매가능" : "판매불가"}
-              </span>
-            </div>
-            <label className="relative inline-flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                checked={isActive}
-                className="sr-only peer"
-                onChange={(e) => setIsActive(e.target.checked)}
-              />
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-gray-700">
+              판매 상태
             </label>
+            <div className="flex items-center justify-between p-4 bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl border border-gray-200">
+              <div className="flex items-center gap-3">
+                <div
+                  className={`w-3 h-3 rounded-full ${
+                    isActive ? "bg-green-500" : "bg-red-500"
+                  }`}
+                ></div>
+                <span className="text-sm font-semibold text-gray-700">
+                  {isActive ? "판매가능" : "판매불가"}
+                </span>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={isActive}
+                  className="sr-only peer"
+                  onChange={(e) => setIsActive(e.target.checked)}
+                />
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              </label>
+            </div>
           </div>
         </div>
 
@@ -139,7 +162,14 @@ const AddMenu = () => {
           <DialogClose asChild>
             <button
               className="flex-1 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
-              onClick={() => addMenu({ name, price, category, isActive })}
+              onClick={() =>
+                addMenu({
+                  name,
+                  price,
+                  categoryId: selectedCategoryId,
+                  isActive,
+                })
+              }
             >
               저장하기
             </button>
