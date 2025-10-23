@@ -1,10 +1,13 @@
+import { Category } from "./Category";
+
 export type Menu = {
   id: number;
   name: string;
   price: number;
   categoryId?: number;
   desrciption?: string;
+  isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
-  isActive: boolean;
+  category: Category;
 };

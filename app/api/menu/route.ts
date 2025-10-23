@@ -5,6 +5,9 @@ const prisma = new PrismaClient();
 
 export async function GET() {
   const menus = await prisma.menu.findMany({
+    include: {
+      category: true,
+    },
     orderBy: { id: "desc" },
   });
   return NextResponse.json(menus);

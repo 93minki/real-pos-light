@@ -32,7 +32,7 @@ const MenuCard = ({ menu, menuClickHandler }: MenuCardProps) => {
           {menu.price.toLocaleString()}원
         </div>
         {menu.category && (
-          <div className="text-sm text-gray-500 mt-2">{menu.category}</div>
+          <div className="text-sm text-gray-500 mt-2">{menu.category.name}</div>
         )}
       </div>
 

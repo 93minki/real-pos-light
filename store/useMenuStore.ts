@@ -27,7 +27,7 @@ export const useMenuStore = create<MenuStoreType>((set) => ({
       if (!res.ok) {
         throw new Error(`HTTP Error, status: ${res.status}`);
       }
-      const data = await res.json();
+      const data: Menu[] = await res.json();
       set({ menus: data, loading: false });
     } catch (error) {
       console.error("메뉴 조회 실패", error);
