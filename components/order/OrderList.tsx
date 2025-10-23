@@ -37,7 +37,7 @@ const OrderList = ({ statusFilter, layout = "list" }: OrderListProps) => {
     <div
       className={`${
         layout === "grid"
-          ? "grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:auto-rows-[300px]"
+          ? "grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:auto-rows-[400px]"
           : "space-y-4 pt-1 sm:pt-4"
       }`}
     >
@@ -47,8 +47,8 @@ const OrderList = ({ statusFilter, layout = "list" }: OrderListProps) => {
           <p>해당 상태의 주문이 없습니다</p>
         </div>
       ) : (
-        filteredOrders.map((order) => (
-          <OrderCard key={order.id} order={order} layout={layout} />
+        filteredOrders.map((order, i) => (
+          <OrderCard key={order.id} order={order} layout={layout}  />
         ))
       )}
     </div>

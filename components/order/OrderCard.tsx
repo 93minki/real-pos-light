@@ -9,7 +9,7 @@ interface OrderCardProps {
   layout?: "list" | "grid";
 }
 
-const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
+const OrderCard = ({ order, layout = "list"}: OrderCardProps) => {
   const completeOrder = useOrderStore((state) => state.completeOrder);
   const deleteOrder = useOrderStore((state) => state.deleteOrder);
 
@@ -60,11 +60,11 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
   if (layout === "grid") {
     return (
       <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 overflow-hidden flex flex-col h-full">
-        <div className="px-3 py-1 bg-gradient-to-r from-orange-50 to-red-50 border-b border-gray-100">
+        <div className="px-3 py-2 bg-gradient-to-r from-orange-50 to-red-50 border-b border-gray-100">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div>
-                <p className="text-xs font-bold text-gray-500">
+                <p className="text-md font-bold text-gray-500">
                   {new Date(order.createdAt).toLocaleString("ko-KR", {
                     month: "2-digit",
                     day: "2-digit",
@@ -85,7 +85,7 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
             {order.items.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between text-sm sm:text-xl xl:text-2xl"
+                className="flex items-center justify-between text-sm sm:text-xl xl:text-5xl"
               >
                 <div className="flex items-center gap-2">
                   <span className="font-medium text-gray-900 truncate">
@@ -94,7 +94,7 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
                 </div>
                 <div className="text-right">
                   <div className="font-semibold text-gray-900">
-                    {item.quantity}개
+                    {item.quantity}
                   </div>
                 </div>
               </div>
@@ -155,16 +155,14 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
         {order.items.map((item, index) => (
           <div
             key={item.id}
-            className="flex items-center justify-between py-2 border-b border-gray-50 last:border-b-0 text-sm sm:text-lg lg:text-xl"
+            className="flex items-center justify-between py-2 border-b border-gray-50 last:border-b-0 text-sm sm:text-lg lg:text-3xl"
           >
             <div className="flex items-center gap-3">
               <h4 className="font-medium text-gray-900">{item.menu.name}</h4>
               <span className="hidden xl:block px-2 py-1 bg-blue-100 text-blue-600 rounded-lg text-sm font-semibold">
                 {item.quantity}개
               </span>
-              <p className="hidden xl:block text-sm text-gray-500">
-                {item.menu.category.name}
-              </p>
+              
             </div>
             <div className="text-right">
               <div className="font-semibold text-gray-900">

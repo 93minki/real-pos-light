@@ -94,7 +94,7 @@ const EditOrder = ({ order }: EditOrderProps) => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         <span role="img" aria-label="edit">
-          ✏️
+          ✏️(수정)
         </span>
       </DialogTrigger>
       <DialogContent className="bg-white rounded-2xl shadow-2xl border-0 flex flex-col max-w-4xl w-[90vw] h-[90vh]">

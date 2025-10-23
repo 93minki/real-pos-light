@@ -38,10 +38,10 @@ const SelectedMenuList = () => {
   };
 
   return (
-    <div className="flex flex-col flex-2 sm:w-1/4 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+    <div className="flex flex-col flex-5 sm:w-1/4 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
       {/* 헤더 */}
       <div className="p-2 sm:p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
-        <h2 className="text-sm  sm:text-xl font-bold text-gray-900 flex items-center gap-2">
+        <h2 className="text-sm sm:text-xl font-bold text-gray-900 flex items-center gap-2">
           <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
           선택된 메뉴
         </h2>

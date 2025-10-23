@@ -12,37 +12,10 @@ interface MenuCardProps {
 
 const MenuCard = ({ menu, menuClickHandler }: MenuCardProps) => {
   const isEditMode = useEditModeStore((state) => state.isEditMode);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startPos, setStartPos] = useState({ x: 0, y: 0 });
 
-  const handleStart = (e: React.MouseEvent | React.TouchEvent) => {
-    const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
-    const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
+  
 
-    setStartPos({ x: clientX, y: clientY });
-    setIsDragging(false);
-  };
-
-  const handleMove = (e: React.MouseEvent | React.TouchEvent) => {
-    const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
-    const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
-
-    const distance = Math.sqrt(
-      Math.pow(clientX - startPos.x, 2) + Math.pow(clientY - startPos.y, 2)
-    );
-
-    if (distance > 5) {
-      // 5px 이상 움직이면 드래그로 판단
-      setIsDragging(true);
-    }
-  };
-
-  const handleEnd = () => {
-    if (!isDragging) {
-      menuClickHandler(menu);
-    }
-    setIsDragging(false);
-  };
+  
 
   return (
     <div
@@ -50,13 +23,11 @@ const MenuCard = ({ menu, menuClickHandler }: MenuCardProps) => {
         menu.isActive
           ? "border-green-200 hover:border-green-300"
           : "border-red-200 hover:border-red-300 opacity-60"
-      } ${isDragging ? "" : "hover:scale-105 active:scale-95"}`}
-      onMouseDown={handleStart}
-      onMouseMove={handleMove}
-      onMouseUp={handleEnd}
-      onTouchStart={handleStart}
-      onTouchMove={handleMove}
-      onTouchEnd={handleEnd}
+      }`}
+        onClick={() => {
+        menuClickHandler(menu);
+      }}
+    
     >
       {/* 메뉴 정보 */}
       <div className="p-6 text-center flex-1 flex flex-col justify-center">
