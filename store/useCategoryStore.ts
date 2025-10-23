@@ -68,6 +68,7 @@ export const useCategoryStore = create<CategoryStoreType>((set) => ({
         categories: state.categories.map((category) =>
           category.id === newCategory.id ? addedCategory : category
         ),
+        loading: false,
       }));
 
       return true;

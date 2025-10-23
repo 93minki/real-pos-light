@@ -1,7 +1,7 @@
 "use client";
 
+import { useCategoryStore } from "@/store/useCategoryStore";
 import { useState } from "react";
-import { toast } from "sonner";
 import {
   Dialog,
   DialogClose,
@@ -13,27 +13,9 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 
-interface AddCategoryProps {
-  onCategoryAdded?: () => void;
-}
-
-const AddCategory = ({ onCategoryAdded }: AddCategoryProps) => {
+const AddCategory = () => {
+  const addCategory = useCategoryStore((state) => state.addCategory);
   const [name, setName] = useState("");
-
-  const addCategory = async () => {
-    const res = await fetch("api/category", {
-      method: "POST",
-      body: JSON.stringify({ name }),
-    });
-    if (!res.ok) {
-      throw new Error("Failed to add category");
-    }
-    const data = await res.json();
-    console.log(data);
-    setName("");
-    toast.success("카테고리 추가 성공");
-    onCategoryAdded?.();
-  };
 
   return (
     <Dialog>
@@ -75,7 +57,10 @@ const AddCategory = ({ onCategoryAdded }: AddCategoryProps) => {
           <DialogClose asChild>
             <button
               className="flex-1 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-medium rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl"
-              onClick={addCategory}
+              onClick={() => {
+                addCategory(name);
+                setName("");
+              }}
             >
               추가하기
             </button>

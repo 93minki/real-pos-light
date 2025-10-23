@@ -19,13 +19,8 @@ const AddMenu = () => {
   const [price, setPrice] = useState(0);
   const [selectedCategoryId, setSelectedCategoryId] = useState<number>(1);
   const [isActive, setIsActive] = useState(true);
-  const [refreshKey, setRefreshKey] = useState(0);
 
   const addMenu = useMenuStore((state) => state.addMenu);
-
-  const handleCategoryAdded = () => {
-    setRefreshKey((prev) => prev + 1);
-  };
 
   return (
     <Dialog>
@@ -120,7 +115,7 @@ const AddMenu = () => {
                   placeholder="카테고리를 선택하세요"
                 />
               </div>
-              <AddCategory onCategoryAdded={handleCategoryAdded} />
+              <AddCategory />
             </div>
           </div>
 

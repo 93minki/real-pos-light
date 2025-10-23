@@ -27,7 +27,13 @@ const MenuList = ({ columns = 4, menuClickHandler }: MenuListProps) => {
       groups[categoryName].push(menu);
     });
 
-    return groups;
+    const sortedEntries = Object.entries(groups).sort(([, a], [, b]) => {
+      const categoryIdA = a[0]?.category?.id || 999;
+      const categoryIdB = b[0]?.category?.id || 999;
+      return categoryIdA - categoryIdB;
+    });
+
+    return Object.fromEntries(sortedEntries);
   }, [menus]);
 
   useEffect(() => {

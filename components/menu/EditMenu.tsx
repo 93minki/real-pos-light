@@ -26,7 +26,6 @@ const EditMenu = ({ menu }: EditMenuProps) => {
     menu.categoryId || 1
   );
   const [isActive, setIsActive] = useState(menu.isActive);
-  const [refreshKey, setRefreshKey] = useState(0);
   const updateMenu = useMenuStore((state) => state.updateMenu);
 
   return (
@@ -117,12 +116,9 @@ const EditMenu = ({ menu }: EditMenuProps) => {
                     setSelectedCategoryId(categoryId);
                   }}
                   placeholder="카테고리를 선택하세요"
-                  refreshKey={refreshKey}
                 />
               </div>
-              <AddCategory
-                onCategoryAdded={() => setRefreshKey((prev) => prev + 1)}
-              />
+              <AddCategory />
             </div>
           </div>
 

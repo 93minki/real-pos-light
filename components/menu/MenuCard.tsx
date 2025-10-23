@@ -31,9 +31,6 @@ const MenuCard = ({ menu, menuClickHandler }: MenuCardProps) => {
         <div className="text-sm  sm:text-3xl font-bold text-blue-600">
           {menu.price.toLocaleString()}원
         </div>
-        {menu.category && (
-          <div className="text-sm text-gray-500 mt-2">{menu.category.name}</div>
-        )}
       </div>
 
       {/* 활성 상태 표시 */}
