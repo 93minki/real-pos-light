@@ -163,7 +163,7 @@ const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
                 {item.quantity}개
               </span>
               <p className="hidden xl:block text-sm text-gray-500">
-                {item.menu.category}
+                {item.menu.category.name}
               </p>
             </div>
             <div className="text-right">
