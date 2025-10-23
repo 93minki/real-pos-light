@@ -45,7 +45,7 @@ const MenuList = ({ columns = 4, menuClickHandler }: MenuListProps) => {
 
   return (
     <div
-      className={`relative w-full flex-6 border rounded-lg p-4 overflow-y-auto ${
+      className={`relative w-full flex-5 sm:flex-6 border rounded-lg p-4 overflow-y-auto ${
         isEditMode ? "shadow-urgent" : ""
       }`}
     >
