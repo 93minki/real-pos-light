@@ -68,7 +68,15 @@ const MenuList = ({ columns = 4, menuClickHandler }: MenuListProps) => {
                 style={{ gridAutoRows: "min-content" }}
               >
                 {categoryMenus
-                  .filter((m) => (isEditMode ? true : m.isActive))
+                  .filter((m) => (isEditMode ? true : m.isActive)).sort((a,b) => {
+                    const mainA = a.name.split("(")[0];
+                    const mainB = b.name.split("(")[0];
+
+                    if (mainA > mainB) return 1;
+                    if (mainA < mainB) return -1;
+
+                    return 0;
+                  })
                   .map((menu) => (
                     <div key={menu.id} className="h-30 sm:h-48">
                       <MenuCard

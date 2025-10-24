@@ -9,6 +9,8 @@ import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
   XAxis,
   YAxis,
 } from "../ui/chart";
@@ -97,6 +99,7 @@ const DailySalesBarChart = ({ orders }: DailySalesBarChart) => {
           allowDecimals={false}
         />
         <Bar dataKey="sales" />
+        <ChartTooltip content={<ChartTooltipContent />}/>
         <ChartLegend content={<ChartLegendContent />} />
       </BarChart>
     </ChartContainer>
