@@ -85,7 +85,7 @@ const OrderCard = ({ order, layout = "list"}: OrderCardProps) => {
             {order.items.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center justify-between text-sm sm:text-xl xl:text-5xl"
+                className="flex items-center justify-between text-xl 2xl:text-5xl"
               >
                 <div className="flex items-center gap-2">
                   <span className="font-medium text-gray-900 truncate">
@@ -155,7 +155,7 @@ const OrderCard = ({ order, layout = "list"}: OrderCardProps) => {
         {order.items.map((item, index) => (
           <div
             key={item.id}
-            className="flex items-center justify-between py-2 border-b border-gray-50 last:border-b-0 text-sm sm:text-lg lg:text-3xl"
+            className="flex items-center justify-between py-2 border-b border-gray-50 last:border-b-0 text-xl 2xl:text-2xl"
           >
             <div className="flex items-center gap-3">
               <h4 className="font-medium text-gray-900">{item.menu.name}</h4>

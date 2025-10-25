@@ -68,14 +68,21 @@ const MenuList = ({ columns = 4, menuClickHandler }: MenuListProps) => {
                 style={{ gridAutoRows: "min-content" }}
               >
                 {categoryMenus
-                  .filter((m) => (isEditMode ? true : m.isActive)).sort((a,b) => {
-                    const mainA = a.name.split("(")[0];
-                    const mainB = b.name.split("(")[0];
+                  .filter((m) => (isEditMode ? true : m.isActive)).sort((a, b) => {
+                    const mainA = a.name.replace(/^\(.*?\)/, "").trim();
+                    const mainB = b.name.replace(/^\(.*?\)/, "").trim();
 
                     if (mainA > mainB) return 1;
                     if (mainA < mainB) return -1;
 
-                    return 0;
+                    const typeA = a.name.match(/^\((.*?)\)/)?.[1] || "";
+                    const typeB = b.name.match(/^\((.*?)\)/)?.[1] || "";
+
+                    if (typeA === typeB) return 0;
+                    if (typeA === "핫") return -1;
+                    if (typeB === "핫") return 1;
+
+                    return typeA.localeCompare(typeB);
                   })
                   .map((menu) => (
                     <div key={menu.id} className="h-30 sm:h-48">
