@@ -9,7 +9,7 @@ interface OrderCardProps {
   layout?: "list" | "grid";
 }
 
-const OrderCard = ({ order, layout = "list"}: OrderCardProps) => {
+const OrderCard = ({ order, layout = "list" }: OrderCardProps) => {
   const completeOrder = useOrderStore((state) => state.completeOrder);
   const deleteOrder = useOrderStore((state) => state.deleteOrder);
 
@@ -76,7 +76,7 @@ const OrderCard = ({ order, layout = "list"}: OrderCardProps) => {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <EditOrder order={order} />
+              <EditOrder order={order} price={totalPrice} />
             </div>
           </div>
         </div>
@@ -152,7 +152,7 @@ const OrderCard = ({ order, layout = "list"}: OrderCardProps) => {
       </div>
 
       <div className="p-4">
-        {order.items.map((item, index) => (
+        {order.items.map((item) => (
           <div
             key={item.id}
             className="flex items-center justify-between py-2 border-b border-gray-50 last:border-b-0 text-xl 2xl:text-2xl"
@@ -162,7 +162,6 @@ const OrderCard = ({ order, layout = "list"}: OrderCardProps) => {
               <span className="hidden xl:block px-2 py-1 bg-blue-100 text-blue-600 rounded-lg text-sm font-semibold">
                 {item.quantity}개
               </span>
-              
             </div>
             <div className="text-right">
               <div className="font-semibold text-gray-900">

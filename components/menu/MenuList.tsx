@@ -7,11 +7,10 @@ import { useEffect, useMemo } from "react";
 import MenuCard from "./MenuCard";
 
 interface MenuListProps {
-  columns?: 2 | 4;
   menuClickHandler: (menu: Menu) => void;
 }
 
-const MenuList = ({ columns = 4, menuClickHandler }: MenuListProps) => {
+const MenuList = ({ menuClickHandler }: MenuListProps) => {
   const menus = useMenuStore((state) => state.menus);
   const fetchMenus = useMenuStore((state) => state.fetchMenus);
   const isEditMode = useEditModeStore((state) => state.isEditMode);
@@ -40,9 +39,6 @@ const MenuList = ({ columns = 4, menuClickHandler }: MenuListProps) => {
     fetchMenus();
   }, [fetchMenus]);
 
-  const gridCols =
-    columns === 2 ? "grid-cols-2" : "grid-cols-2 md:grid-cols-3 lg:grid-cols-4";
-
   return (
     <div
       className={`relative w-full flex-5 sm:flex-6 border rounded-lg p-4 overflow-y-auto ${
@@ -52,7 +48,7 @@ const MenuList = ({ columns = 4, menuClickHandler }: MenuListProps) => {
       <div className="space-y-6">
         {Object.entries(menuListByCategory).map(
           ([categoryName, categoryMenus]) => (
-            <div key={categoryName} className="space-y-3">
+            <div key={categoryName} className="space-y-3 @container w-full">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
                 <h3 className="text-sm sm:text-lg font-semibold text-gray-800">
@@ -62,13 +58,14 @@ const MenuList = ({ columns = 4, menuClickHandler }: MenuListProps) => {
                   ({categoryMenus.length}개)
                 </span>
               </div>
-
+              {/* sm:grid-cols-3 lg:grid-cols-4 */}
               <div
-                className={`grid ${gridCols} gap-4`}
+                className={`grid grid-cols-1 @xs:grid-cols-2 @xl:grid-cols-3 @3xl:grid-cols-4 gap-4`}
                 style={{ gridAutoRows: "min-content" }}
               >
                 {categoryMenus
-                  .filter((m) => (isEditMode ? true : m.isActive)).sort((a, b) => {
+                  .filter((m) => (isEditMode ? true : m.isActive))
+                  .sort((a, b) => {
                     const mainA = a.name.replace(/^\(.*?\)/, "").trim();
                     const mainB = b.name.replace(/^\(.*?\)/, "").trim();
 

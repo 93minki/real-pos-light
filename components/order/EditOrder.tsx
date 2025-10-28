@@ -14,9 +14,10 @@ import {
 
 interface EditOrderProps {
   order: Order;
+  price: number;
 }
 
-const EditOrder = ({ order }: EditOrderProps) => {
+const EditOrder = ({ order, price }: EditOrderProps) => {
   const updateOrder = useOrderStore((state) => state.updateOrder);
 
   const [open, setOpen] = useState(false);
@@ -94,7 +95,7 @@ const EditOrder = ({ order }: EditOrderProps) => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         <span role="img" aria-label="edit">
-          ✏️(수정)
+          {price.toLocaleString()}원(수정)
         </span>
       </DialogTrigger>
       <DialogContent className="bg-white rounded-2xl shadow-2xl border-0 flex flex-col max-w-4xl w-[90vw] h-[90vh]">
@@ -105,23 +106,28 @@ const EditOrder = ({ order }: EditOrderProps) => {
           <DialogDescription className="text-gray-600 text-center"></DialogDescription>
         </DialogHeader>
 
-        <div className="flex flex-col flex-1 gap-4 overflow-y-auto ">
-          {/* 현재 주문 내역 - 60% 높이 */}
-          {open && (
-            <div className="h-[60%] flex flex-col overflow-y-auto">
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">
-                현재 주문 내역
-              </h3>
-              <div className="flex-1 space-y-2 overflow-y-auto border rounded-lg p-3">
-                {editableItems.map((item) => (
-                  <div
-                    key={item.menu.id}
-                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border"
-                  >
-                    <div className="flex-1">
-                      <div className="font-medium text-gray-900">
-                        {item.menu.name}
-                      </div>
+        <div className="flex flex-1 gap-2 overflow-y-auto">
+          <div className="flex-1 flex-col overflow-y-auto @container">
+            <h3 className="text-sm sm:text-xl font-semibold text-gray-800 mb-3">
+              메뉴 선택
+            </h3>
+            <div className="flex-1 overflow-y-auto">
+              <MenuList menuClickHandler={menuClickHandler} />
+            </div>
+          </div>
+          <div className="flex-1 flex-col overflow-y-auto @container">
+            <h3 className="text-sm sm:text-xl font-semibold text-gray-800 mb-3">
+              현재 주문 내역
+            </h3>
+            <div className="flex-1 space-y-2 overflow-y-auto border rounded-lg p-3 text-xs @xxs:text-base">
+              {editableItems.map((item) => (
+                <div
+                  key={item.menu.id}
+                  className="flex items-center justify-between p-2 sm:p-3 bg-gray-50 rounded-lg border"
+                >
+                  <div className="flex flex-col gap-1 items-center flex-1">
+                    <div className="font-medium text-gray-900">
+                      {item.menu.name}
                     </div>
                     <div className="flex items-center gap-2">
                       <button
@@ -139,32 +145,15 @@ const EditOrder = ({ order }: EditOrderProps) => {
                       >
                         +
                       </button>
-                      <button
-                        onClick={() => handleRemoveItem(item)}
-                        className="w-8 h-8 bg-gray-100 hover:bg-red-100 text-gray-600 hover:text-red-600 rounded-full flex items-center justify-center text-sm font-medium transition-colors"
-                      >
-                        ×
-                      </button>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* 메뉴 리스트 - 40% 높이 */}
-          <div className="h-[40%] flex flex-col overflow-y-auto">
-            <h3 className="text-lg font-semibold text-gray-800 mb-3">
-              메뉴 선택
-            </h3>
-            <div className="flex-1 overflow-y-auto">
-              <MenuList columns={2} menuClickHandler={menuClickHandler} />
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* 하단 확인/취소 버튼 */}
-        <div className="flex justify-end gap-2 pt-2">
+        <div className="flex justify-center gap-2 pt-2">
           <button
             className="px-4 py-2 rounded-lg border bg-gray-50 hover:bg-gray-100"
             onClick={() => setOpen(false)}

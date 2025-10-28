@@ -113,6 +113,10 @@ body {
   animation: shadowUrgent 3s linear infinite;
 }
 
+@theme {
+  --container-xxs: 12rem;
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
 

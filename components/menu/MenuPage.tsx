@@ -16,7 +16,7 @@ export default function MenuPage() {
 
   return (
     <div className="w-full h-dvh flex flex-col sm:flex-row gap-2 px-4 pt-11 sm:pt-18 pb-2">
-      <MenuList columns={4} menuClickHandler={menuClickHandler} />
+      <MenuList menuClickHandler={menuClickHandler} />
       <SelectedMenuList />
     </div>
   );
