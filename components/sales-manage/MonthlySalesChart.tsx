@@ -47,7 +47,7 @@ const MonthlySalesChart = ({ orders, year, month }: MonthlySalesChartProps) => {
         fill: getMenuColor(name),
       }))
       .sort((a, b) => b.sales - a.sales)
-      .slice(0, 5); // 상위 5개 메뉴만 표시
+      .slice(0, 5);
   }, [orders]);
 
   const chartConfig = React.useMemo(() => {
@@ -117,8 +117,8 @@ const MonthlySalesChart = ({ orders, year, month }: MonthlySalesChartProps) => {
           {year}년 {month}월
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 pb-0 px-4 py-2">
-        <ChartContainer config={chartConfig} className="mx-auto aspect-square ">
+      <CardContent className="flex-1 pb-0">
+        <ChartContainer config={chartConfig} className="mx-auto aspect-square">
           <PieChart>
             <ChartTooltip
               cursor={false}
@@ -130,6 +130,7 @@ const MonthlySalesChart = ({ orders, year, month }: MonthlySalesChartProps) => {
               label={({ name, value }) => `${name} (${value})`}
               nameKey="menu"
               innerRadius={60}
+              outerRadius={90}
               strokeWidth={5}
             >
               <Label

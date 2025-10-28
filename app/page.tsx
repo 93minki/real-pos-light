@@ -3,7 +3,6 @@ import NaviButton from "@/components/ui/NaviButton";
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col items-center justify-center px-4 py-8">
-      {/* 헤더 섹션 */}
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
           POS 시스템
@@ -14,7 +13,6 @@ export default function Home() {
         <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto rounded-full"></div>
       </div>
 
-      {/* 네비게이션 버튼들 */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
         <NaviButton
           pathName="menu"
@@ -29,8 +27,6 @@ export default function Home() {
           className="bg-gradient-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
         />
       </div>
-
-      {/* 하단 정보 */}
     </div>
   );
 }

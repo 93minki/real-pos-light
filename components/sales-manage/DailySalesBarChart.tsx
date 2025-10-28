@@ -79,7 +79,7 @@ const DailySalesBarChart = ({ orders }: DailySalesBarChart) => {
   return (
     <ChartContainer
       config={chartConfig}
-      className={`mx-auto max-h-[300px] ${getChartWidth()}`}
+      className={`mx-auto h-full ${getChartWidth()}`}
     >
       <BarChart data={menuSales}>
         <CartesianGrid vertical={false} />
@@ -99,7 +99,7 @@ const DailySalesBarChart = ({ orders }: DailySalesBarChart) => {
           allowDecimals={false}
         />
         <Bar dataKey="sales" />
-        <ChartTooltip content={<ChartTooltipContent />}/>
+        <ChartTooltip content={<ChartTooltipContent />} />
         <ChartLegend content={<ChartLegendContent />} />
       </BarChart>
     </ChartContainer>

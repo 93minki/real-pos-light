@@ -81,7 +81,7 @@ export const useSSEConnection = (options?: UseSSEConnectionOptions) => {
 
       const maxAttempts = 5;
       if (state.reconnectAttempts < maxAttempts) {
-        const delay = Math.pow(2, state.reconnectAttempts) * 1000; // 지수 백오프
+        const delay = Math.pow(2, state.reconnectAttempts) * 1000;
         console.log(`${delay}ms 후 재연결 시도...`);
 
         reconnectTimeoutRef.current = setTimeout(() => {

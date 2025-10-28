@@ -55,6 +55,4 @@ export async function POST(req: Request) {
   }
 }
 
-export async function PATCH(req: Request) {
-  // 카테고리 수정 UI가 필요하면 그때 만드는걸로
-}
+export async function PATCH(req: Request) {}

@@ -39,7 +39,6 @@ const SelectedMenuList = () => {
 
   return (
     <div className="flex flex-col flex-5 sm:flex-3 sm:w-1/4 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-      {/* 헤더 */}
       <div className="p-2 sm:p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
         <h2 className="text-sm sm:text-xl font-bold text-gray-900 flex items-center gap-2">
           <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
@@ -50,7 +49,6 @@ const SelectedMenuList = () => {
         </p>
       </div>
 
-      {/* 메뉴 목록 */}
       <div className="flex-1 overflow-y-auto p-2 lg:p-4 space-y-3">
         {selectedMenuList.size === 0 ? (
           <div className="text-center py-12 text-gray-500">
@@ -103,7 +101,6 @@ const SelectedMenuList = () => {
         )}
       </div>
 
-      {/* 총액 및 주문 버튼 */}
       <div className="p-4 bg-gray-50 border-t border-gray-100">
         <div className="flex-col lg:flex-row flex lg:items-center justify-between mb-4">
           <span className="hidden sm:block text-xs md:text-md xl:text-lg font-bold text-gray-900">

@@ -87,7 +87,6 @@ export function HourlySalesChart({ orders }: HourlySalesChartProps) {
       const { data, config, menuNames: menus } = generateChartData(orders);
       const colors = menus.map((menuName) => getMenuColor(menuName));
 
-      // 시간별 총합을 미리 계산
       const totalByHour = new Map(
         data.map((item) => [item.hour, item.total as number])
       );
@@ -102,7 +101,7 @@ export function HourlySalesChart({ orders }: HourlySalesChartProps) {
     }, [orders]);
 
   return (
-    <div className="w-full">
+    <div className="flex flex-col">
       <ChartContainer config={chartConfig} className="w-full h-[400px]">
         <BarChart accessibilityLayer data={chartData} margin={{ bottom: 20 }}>
           <CartesianGrid vertical={false} />

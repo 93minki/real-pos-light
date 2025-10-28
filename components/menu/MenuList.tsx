@@ -58,7 +58,6 @@ const MenuList = ({ menuClickHandler }: MenuListProps) => {
                   ({categoryMenus.length}개)
                 </span>
               </div>
-              {/* sm:grid-cols-3 lg:grid-cols-4 */}
               <div
                 className={`grid grid-cols-1 @xs:grid-cols-2 @xl:grid-cols-3 @3xl:grid-cols-4 gap-4`}
                 style={{ gridAutoRows: "min-content" }}

@@ -107,7 +107,7 @@ const EditOrder = ({ order, price }: EditOrderProps) => {
         </DialogHeader>
 
         <div className="flex flex-1 gap-2 overflow-y-auto">
-          <div className="flex-1 flex-col overflow-y-auto @container">
+          <div className="flex grow-1 sm:grow-2 flex-col overflow-y-auto @container">
             <h3 className="text-sm sm:text-xl font-semibold text-gray-800 mb-3">
               메뉴 선택
             </h3>
@@ -115,7 +115,7 @@ const EditOrder = ({ order, price }: EditOrderProps) => {
               <MenuList menuClickHandler={menuClickHandler} />
             </div>
           </div>
-          <div className="flex-1 flex-col overflow-y-auto @container">
+          <div className="flex grow-1 flex-col overflow-y-auto @container">
             <h3 className="text-sm sm:text-xl font-semibold text-gray-800 mb-3">
               현재 주문 내역
             </h3>

@@ -37,7 +37,6 @@ export const useCategoryStore = create<CategoryStoreType>((set) => ({
     }
   },
   addCategory: async (name: string) => {
-    // 낙관적 업데이트 적용
     const newCategory: Category = {
       id: Date.now(),
       name,

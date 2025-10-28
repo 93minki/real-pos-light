@@ -4,7 +4,6 @@ import { cn } from "@/lib/utils";
 import * as React from "react";
 import * as RechartsPrimitive from "recharts";
 
-// Chart container
 const ChartContainer = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> & {
@@ -17,7 +16,6 @@ const ChartContainer = React.forwardRef<
   const uniqueId = React.useId();
   const chartId = `chart-${id || uniqueId.replace(/:/g, "")}`;
 
-  // DOM에 인식되지 않는 props 필터링
   const domProps = Object.fromEntries(
     Object.entries(props as Record<string, unknown>).filter(
       ([key]) =>
@@ -48,7 +46,6 @@ const ChartContainer = React.forwardRef<
 });
 ChartContainer.displayName = "Chart";
 
-// Chart tooltip
 const ChartTooltip = RechartsPrimitive.Tooltip;
 
 const ChartTooltipContent = React.forwardRef<
@@ -84,9 +81,6 @@ const ChartTooltipContent = React.forwardRef<
       }
 
       const [item] = payload;
-      // const key = `${labelKey || item.dataKey || item.name || "value"}`;
-      // const value =
-      //   item.value && item.dataKey ? item.payload[item.dataKey] : item.value;
 
       if (labelFormatter && typeof label === "string") {
         return labelFormatter(label, [item]);
@@ -98,8 +92,6 @@ const ChartTooltipContent = React.forwardRef<
     if (!active || !payload?.length) {
       return null;
     }
-
-    // const [item] = payload;
 
     return (
       <div
@@ -181,7 +173,6 @@ const ChartTooltipContent = React.forwardRef<
 );
 ChartTooltipContent.displayName = "ChartTooltip";
 
-// Chart legend
 const ChartLegend = RechartsPrimitive.Legend;
 
 const ChartLegendContent = React.forwardRef<
@@ -207,7 +198,6 @@ const ChartLegendContent = React.forwardRef<
       return null;
     }
 
-    // DOM에 인식되지 않는 props 필터링
     const domProps = Object.fromEntries(
       Object.entries(props as Record<string, unknown>).filter(
         ([key]) =>
@@ -257,7 +247,6 @@ const ChartLegendContent = React.forwardRef<
 );
 ChartLegendContent.displayName = "ChartLegend";
 
-// Re-export all the recharts primitives that are used in the charts.
 export {
   Area,
   AreaChart,
@@ -295,7 +284,6 @@ export {
   ChartTooltipContent,
 };
 
-// Chart configuration
 export type ChartConfig = {
   [k in string]: {
     label?: React.ReactNode;

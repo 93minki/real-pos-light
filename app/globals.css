@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* 프리탠다드 Variable 폰트 정의 */
 @font-face {
   font-family: "Pretendard";
   src: url("/fonts/PretendardVariable.woff2") format("woff2-variations");
@@ -9,38 +8,11 @@
   font-display: swap;
 }
 
-/* @custom-variant dark (&:is(.dark *)); */
-
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
-/* :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-} */
 
 @keyframes shadowRotate {
   0% {
@@ -60,7 +32,6 @@ body {
   }
 }
 
-/* 더 강한 시각적 효과를 위한 새로운 애니메이션 */
 @keyframes shadowPulse {
   0% {
     box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
@@ -76,7 +47,6 @@ body {
   }
 }
 
-/* 파란색 긴급감 있는 효과 */
 @keyframes shadowUrgent {
   0% {
     box-shadow: -3px 0 20px 8px rgba(0, 123, 255, 0.6);
@@ -104,7 +74,6 @@ body {
   animation: shadowRotate 4s linear infinite;
 }
 
-/* 새로운 강화된 효과들 */
 .shadow-pulse {
   animation: shadowPulse 2s ease-in-out infinite;
 }

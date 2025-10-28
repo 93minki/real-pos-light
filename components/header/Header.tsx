@@ -36,7 +36,6 @@ const Header = () => {
   return (
     <div className="fixed top-0 left-0 w-full h-10 sm:h-16 bg-white border-b border-gray-200 z-50 shadow-sm">
       <div className="h-full px-2 sm:px-6 flex justify-between items-center">
-        {/* 왼쪽 네비게이션 */}
         <div className="flex gap-3">
           <Link href={"/menu"} className={getNavButtonStyle("/menu")}>
             <span className="flex items-center gap-2">
@@ -61,7 +60,6 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* 오른쪽 액션 버튼들 */}
         <div className="flex gap-1 sm:gap-3 items-center">
           <FullScreenButton />
           <ConnectionIndicator

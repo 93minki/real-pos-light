@@ -47,8 +47,8 @@ const OrderList = ({ statusFilter, layout = "list" }: OrderListProps) => {
           <p>해당 상태의 주문이 없습니다</p>
         </div>
       ) : (
-        filteredOrders.map((order, i) => (
-          <OrderCard key={order.id} order={order} layout={layout}  />
+        filteredOrders.map((order) => (
+          <OrderCard key={order.id} order={order} layout={layout} />
         ))
       )}
     </div>

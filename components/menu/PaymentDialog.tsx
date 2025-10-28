@@ -58,7 +58,6 @@ const PaymentDialog = ({
         </DialogHeader>
 
         <div className="space-y-6">
-          {/* 결제 금액 표시 */}
           <div className="bg-blue-50 rounded-xl p-4 border-2 border-blue-200">
             <div className="text-center">
               <div className="text-sm text-blue-600 font-medium">결제 금액</div>
@@ -68,7 +67,6 @@ const PaymentDialog = ({
             </div>
           </div>
 
-          {/* 받은 금액 및 거스름돈 계산 */}
           <div className="space-y-4">
             <div className="text-sm font-semibold text-gray-700">받은 금액</div>
 
@@ -80,7 +78,6 @@ const PaymentDialog = ({
               </div>
             </div>
 
-            {/* 금액 버튼들 */}
             <div className="space-y-3">
               <div className="grid grid-cols-3 gap-2">
                 <button
@@ -121,7 +118,6 @@ const PaymentDialog = ({
                 </button>
               </div>
 
-              {/* 초기화 버튼 */}
               <button
                 onClick={resetAmount}
                 className="w-full py-4 bg-red-100 hover:bg-red-200 text-red-700 rounded-xl font-bold text-lg transition-colors"
@@ -130,7 +126,6 @@ const PaymentDialog = ({
               </button>
             </div>
 
-            {/* 거스름돈 표시 */}
             <div
               className={`rounded-xl p-4 border-2 ${
                 isEnough

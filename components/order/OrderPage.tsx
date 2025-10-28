@@ -5,7 +5,6 @@ import OrderList from "./OrderList";
 const OrderPage = () => {
   return (
     <div className="w-full h-dvh flex flex-col sm:flex-row gap-4 px-4 pt-11 sm:pt-18 pb-2">
-      {/* 진행중인 주문 (모바일: 2/3 높이, 데스크톱: 3/4 너비) */}
       <div className="flex-[2] sm:flex-[3] min-h-0">
         <div className="h-full bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col">
           <div className="p-4 bg-gradient-to-r from-orange-50 to-red-50 border-b border-gray-100 flex-shrink-0">
@@ -23,7 +22,6 @@ const OrderPage = () => {
         </div>
       </div>
 
-      {/* 완료된 주문 (모바일: 1/3 높이, 데스크톱: 1/4 너비) */}
       <div className="flex-[1] min-h-0">
         <div className="h-full bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden flex flex-col">
           <div className="p-4 bg-gradient-to-r from-green-50 to-blue-50 border-b border-gray-100 flex-shrink-0">

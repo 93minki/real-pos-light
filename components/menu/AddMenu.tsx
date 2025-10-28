@@ -45,7 +45,6 @@ const AddMenu = () => {
         </DialogHeader>
 
         <div className="space-y-6">
-          {/* 메뉴 이름 */}
           <div className="space-y-2">
             <label className="text-sm font-semibold text-gray-700">
               메뉴 이름
@@ -59,7 +58,6 @@ const AddMenu = () => {
             />
           </div>
 
-          {/* 가격 */}
           <div className="">
             <label className="text-sm font-semibold text-gray-700">가격</label>
             <div className="flex items-center gap-2">
@@ -99,7 +97,6 @@ const AddMenu = () => {
             </div>
           </div>
 
-          {/* 카테고리 */}
           <div className="space-y-3">
             <label className="text-sm font-semibold text-gray-700">
               카테고리
@@ -119,7 +116,6 @@ const AddMenu = () => {
             </div>
           </div>
 
-          {/* 활성상태 */}
           <div className="space-y-2">
             <label className="text-sm font-semibold text-gray-700">
               판매 상태

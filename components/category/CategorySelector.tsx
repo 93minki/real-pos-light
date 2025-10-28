@@ -30,12 +30,10 @@ const CategorySelector = ({
   const isLoading = useCategoryStore((state) => state.loading);
   const fetchCategories = useCategoryStore((state) => state.fetchCategories);
 
-  // 컴포넌트 마운트 시 카테고리 로드
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
 
-  // selectedCategoryId가 변경될 때 기본값 설정
   useEffect(() => {
     if (selectedCategoryId && categories.length > 0) {
       const defaultCategory = categories.find(
