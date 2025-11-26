@@ -1,3 +1,4 @@
+import PrintOrder from "@/components/printer/PrintOrder";
 import NaviButton from "@/components/ui/NaviButton";
 
 export default function Home() {
@@ -12,6 +13,8 @@ export default function Home() {
         </p>
         <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto rounded-full"></div>
       </div>
+
+      <PrintOrder order="1234" />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
         <NaviButton
