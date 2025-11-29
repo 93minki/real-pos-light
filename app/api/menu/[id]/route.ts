@@ -1,3 +1,4 @@
+
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
@@ -34,7 +35,7 @@ export async function PATCH(
     return NextResponse.json(updatedMenu);
   } catch (error) {
     console.error(error);
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if ((error as any).code === "P2025") {
       return NextResponse.json(
         { error: "해당 메뉴가 존재하지 않습니다" },

@@ -28,12 +28,26 @@ const SelectedMenuList = () => {
       }),
     });
 
+    const printRes = await fetch("/api/print", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        orderNumber: 123 // test
+      })
+    })
+
     if (res.ok) {
       resetSelectedMenuList();
     } else {
       toast.error("주문 실패", {
         description: res.status,
       });
+    }
+
+    if (printRes) {
+      toast.success("프린트 성공")
     }
   };
 
