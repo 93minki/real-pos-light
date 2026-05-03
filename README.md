@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# real-pos-light
+
+Next.js, Prisma, SQLite 기반의 간단한 POS 프로젝트입니다.
+
+## Requirements
+
+- Node.js 20 이상 권장
+- Yarn 1.x
 
 ## Getting Started
 
-First, run the development server:
+처음 프로젝트를 받았거나 다른 환경에서 새로 실행할 때는 아래 순서대로 진행하세요.
+
+### 1. 의존성 설치
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Prisma Client 생성
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+yarn prisma generate
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 3. SQLite 데이터베이스 스키마 반영
 
-## Learn More
+```bash
+yarn prisma db push
+```
 
-To learn more about Next.js, take a look at the following resources:
+이 명령을 실행하면 `prisma/schema.prisma` 기준으로 SQLite 데이터베이스가 준비됩니다.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. 개발 서버 실행
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+yarn dev
+```
 
-## Deploy on Vercel
+브라우저에서 [http://localhost:3000](http://localhost:3000) 으로 접속하면 됩니다.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Recommended First Run
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+처음 한 번은 아래처럼 순서대로 실행하면 가장 안전합니다.
+
+```bash
+yarn install
+yarn prisma generate
+yarn prisma db push
+yarn dev
+```
+
+## Prisma Notes
+
+- 현재 SQLite 데이터베이스 파일은 `prisma/dev.db`를 사용합니다.
+- 스키마를 변경한 뒤에는 `yarn prisma generate`를 다시 실행하는 것을 권장합니다.
+- 새 마이그레이션이 필요한 구조 변경은 `yarn prisma migrate dev`로 관리하세요.
+
+## Production
+
+- `yarn start` 실행 시 `prisma migrate deploy`가 먼저 수행된 뒤 앱이 시작됩니다.
+- `yarn build`로 프로덕션 빌드를 만들 수 있습니다.
