@@ -14,7 +14,7 @@ const MenuCard = ({ menu, menuClickHandler }: MenuCardProps) => {
 
   return (
     <div
-      className={`menu-card relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 cursor-pointer overflow-hidden group h-full flex flex-col ${
+      className={`menu-card relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 border-2 cursor-pointer overflow-hidden group h-full flex flex-col select-none touch-manipulation ${
         menu.isActive
           ? "border-green-200 hover:border-green-300"
           : "border-red-200 hover:border-red-300 opacity-60"
@@ -27,7 +27,7 @@ const MenuCard = ({ menu, menuClickHandler }: MenuCardProps) => {
         <h3 className="text-xs sm:text-2xl font-bold text-gray-900 mb-2 line-clamp-2">
           {menu.name}
         </h3>
-        <div className="text-sm  sm:text-3xl font-bold text-blue-600">
+        <div className="menu-card-price text-sm sm:text-3xl font-bold text-blue-600 transition-colors duration-200">
           {menu.price.toLocaleString()}원
         </div>
       </div>
@@ -50,7 +50,7 @@ const MenuCard = ({ menu, menuClickHandler }: MenuCardProps) => {
         </div>
       )}
 
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="menu-card-overlay pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
     </div>
   );
 };

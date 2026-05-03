@@ -14,40 +14,49 @@ const SelectedMenuList = () => {
   );
 
   const handleOrder = async () => {
-    const res = await fetch("/api/orders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        items: Array.from(selectedMenuList.entries()).map(([menuId, item]) => ({
-          menuId,
-          quantity: item.quantity,
-          price: item.price,
-        })),
-      }),
-    });
-
-    const printRes = await fetch("/api/print", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        orderNumber: 123 // test
-      })
-    })
-
-    if (res.ok) {
-      resetSelectedMenuList();
-    } else {
-      toast.error("주문 실패", {
-        description: res.status,
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          items: Array.from(selectedMenuList.entries()).map(
+            ([menuId, item]) => ({
+              menuId,
+              quantity: item.quantity,
+              price: item.price,
+            })
+          ),
+        }),
       });
-    }
 
-    if (printRes) {
-      toast.success("프린트 성공")
+      if (!res.ok) {
+        toast.error("주문 실패", {
+          description: res.status,
+        });
+        return;
+      }
+
+      resetSelectedMenuList();
+
+      const printRes = await fetch("/api/print", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          orderNumber: 123, // test
+        }),
+      });
+
+      if (printRes.ok) {
+        toast.success("프린트 성공");
+      }
+    } catch {
+      toast.error("주문 실패", {
+        description: "네트워크 오류가 발생했습니다.",
+      });
     }
   };
 

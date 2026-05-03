@@ -306,6 +306,18 @@ button:active {
 }
 
 .menu-card:active {
-  transform: scale(0.5);
-  opacity: 0.7;
+  transform: none;
+  opacity: 1;
+  background-color: rgb(239 246 255 / 0.75);
+  box-shadow:
+    0 14px 24px rgb(37 99 235 / 0.14),
+    inset 0 0 0 2px rgb(59 130 246 / 0.18);
+}
+
+.menu-card:active .menu-card-overlay {
+  opacity: 1;
+}
+
+.menu-card:active .menu-card-price {
+  color: rgb(29 78 216);
 }
